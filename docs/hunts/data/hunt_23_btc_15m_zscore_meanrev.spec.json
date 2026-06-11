@@ -1,0 +1,206 @@
+{
+  "slug": "hunt_23_btc_15m_zscore_meanrev",
+  "verdict": "fully_extractable (post-fix: atr_period->period on percentile-ATR nodes)",
+  "fix_applied": "renamed atr_period->period on 2 percentile-ATR indicator nodes",
+  "validation_notes": [],
+  "spec": {
+    "schema_version": "1.0",
+    "name": "BTC/USDT 15m Z-Score Mean Reversion with 4H Trend + Volatility Gate",
+    "description": "Statistical mean-reversion on 15-minute BTC/USDT. Enters long when price is >2 SDs below its 20-bar rolling mean, the 4H trend is up (close > EMA50), and the 14-period ATR is in the middle volatility band (25th\u201385th percentile of trailing 500-bar distribution). Exits via a 1:2 ATR-anchored R-multiple bracket.",
+    "instrument": {
+      "symbol": "BTC/USDT",
+      "exchange": "binance",
+      "quote_currency": "USDT",
+      "asset_class": "crypto_spot",
+      "contract_specs": null,
+      "session_hours": null
+    },
+    "primary_timeframe": "15m",
+    "filter_timeframe": "4h",
+    "direction": "long",
+    "entry": {
+      "condition": {
+        "type": "and",
+        "conditions": [
+          {
+            "type": "zscore",
+            "period": 20,
+            "threshold": 2.0,
+            "source": "close",
+            "form": "below_neg"
+          },
+          {
+            "type": "compare",
+            "left": {
+              "kind": "price",
+              "field": "close"
+            },
+            "op": ">",
+            "right": {
+              "kind": "indicator",
+              "name": "ema",
+              "params": {
+                "period": 50,
+                "fast": null,
+                "slow": null,
+                "signal": null,
+                "k": null,
+                "d": null,
+                "smooth": null,
+                "std_dev": null,
+                "session_anchored": null,
+                "source": null,
+                "atr_period": null,
+                "multiplier": null,
+                "step": null,
+                "max_step": null
+              },
+              "source": "close",
+              "component": null
+            },
+            "timeframe": "4h"
+          },
+          {
+            "type": "and",
+            "conditions": [
+              {
+                "type": "compare",
+                "left": {
+                  "kind": "percentile",
+                  "expression": {
+                    "kind": "indicator",
+                    "name": "atr",
+                    "params": {
+                      "period": 14,
+                      "fast": null,
+                      "slow": null,
+                      "signal": null,
+                      "k": null,
+                      "d": null,
+                      "smooth": null,
+                      "std_dev": null,
+                      "session_anchored": null,
+                      "source": null,
+                      "atr_period": null,
+                      "multiplier": null,
+                      "step": null,
+                      "max_step": null
+                    },
+                    "source": "close",
+                    "component": null
+                  },
+                  "window": 500
+                },
+                "op": ">=",
+                "right": {
+                  "kind": "constant",
+                  "value": 0.25
+                },
+                "timeframe": null
+              },
+              {
+                "type": "compare",
+                "left": {
+                  "kind": "percentile",
+                  "expression": {
+                    "kind": "indicator",
+                    "name": "atr",
+                    "params": {
+                      "period": 14,
+                      "fast": null,
+                      "slow": null,
+                      "signal": null,
+                      "k": null,
+                      "d": null,
+                      "smooth": null,
+                      "std_dev": null,
+                      "session_anchored": null,
+                      "source": null,
+                      "atr_period": null,
+                      "multiplier": null,
+                      "step": null,
+                      "max_step": null
+                    },
+                    "source": "close",
+                    "component": null
+                  },
+                  "window": 500
+                },
+                "op": "<=",
+                "right": {
+                  "kind": "constant",
+                  "value": 0.85
+                },
+                "timeframe": null
+              }
+            ]
+          }
+        ]
+      },
+      "order_type": "market",
+      "limit_offset_pct": null
+    },
+    "exit": {
+      "exits": [
+        {
+          "type": "r_multiple",
+          "atr_period": 14,
+          "atr_multiple": 1.0,
+          "stop_R": 1.0,
+          "target_R": 2.0
+        }
+      ]
+    },
+    "position_sizing": {
+      "mode": "fixed_percent_equity",
+      "percent": 0.01
+    },
+    "costs": {
+      "commission_pct": 0.001,
+      "slippage_pct": 0.0005
+    },
+    "filters": [],
+    "metadata": {
+      "source_url": "hunt_23_btc_15m_zscore_meanrev",
+      "source_type": "article",
+      "extracted_by": "",
+      "extracted_at": null,
+      "confidence": 0.97,
+      "extraction_notes": [
+        {
+          "severity": "info",
+          "field": "entry.condition[2] \u2014 ATR percentile",
+          "message": "ATR uses 'atr_period' inside IndicatorParams. The percentile window of 500 bars and the 0.25\u20130.85 band are explicitly stated in the source.",
+          "confidence": 0.97
+        },
+        {
+          "severity": "info",
+          "field": "exit \u2014 r_multiple",
+          "message": "The source explicitly states stop_R=1.0 and target_R=2.0, both anchored to ATR(14) with atr_multiple=1.0. This is a 1:2 risk-reward bracket.",
+          "confidence": 0.99
+        },
+        {
+          "severity": "info",
+          "field": "position_sizing",
+          "message": "Source explicitly states '1% of equity per trade, fixed percent'.",
+          "confidence": 0.99
+        },
+        {
+          "severity": "info",
+          "field": "entry.order_type",
+          "message": "Source says 'fill on the next-bar open at realised slippage', consistent with a market order on the bar following the signal bar.",
+          "confidence": 0.9
+        },
+        {
+          "severity": "warning",
+          "field": "overall",
+          "message": "This is a diagnostically synthesised strategy specifically designed to test whether ~30 bps round-trip cost leaves any edge. The author acknowledges the cost concern directly. High trade selectivity from three filters is the intended mitigation \u2014 verify trade frequency in backtest before live use.",
+          "confidence": 0.95
+        }
+      ]
+    }
+  },
+  "fixes": [
+    "set filter_timeframe=4h (loader needs it to fetch the 4H trend-filter data; extractor declared 4h only per-condition)"
+  ]
+}

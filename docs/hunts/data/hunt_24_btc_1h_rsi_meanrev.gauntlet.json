@@ -1,0 +1,192 @@
+{
+  "slug": "hunt_24_btc_1h_rsi_meanrev",
+  "window": [
+    "2022-06-01",
+    "2026-05-01"
+  ],
+  "uses_tier3": false,
+  "backtest": {
+    "engine": "vbt",
+    "num_trades": 112,
+    "total_return_pct": -0.0037898616334390844,
+    "cagr": -0.0009694019039985236,
+    "sharpe_ratio": -1.0731984832529784,
+    "sortino_ratio": -1.4579256637360898,
+    "max_drawdown_pct": 0.00398170898232793,
+    "win_rate": 0.33035714285714285,
+    "profit_factor": 0.6303907481244345,
+    "expectancy": -0.0033921426676484525,
+    "bars_processed": 34319,
+    "bars_per_year": 8760.0
+  },
+  "drift_parity": {
+    "shape": "cross_engine_envelope",
+    "vbt_trades": 112,
+    "iterative_trades": 151,
+    "ratio": 1.3482142857142858,
+    "within_2x": true,
+    "iterative_return_pct": -0.005950385783962564
+  },
+  "first_trade": {
+    "entry_time": "2022-07-10 14:00:00+00:00",
+    "entry_price": 20874.351959999996,
+    "exit_time": "2022-07-11 01:00:00+00:00",
+    "exit_price": 20555.18,
+    "exit_reason": "signal",
+    "size": 0.0047857820971655175,
+    "pnl": -1.7257601644333083,
+    "return_pct": -0.017274859245977412,
+    "all_fields": [
+      "direction",
+      "entry_price",
+      "entry_time",
+      "exit_price",
+      "exit_reason",
+      "exit_time",
+      "pnl",
+      "return_pct",
+      "size"
+    ],
+    "raw": {
+      "entry_time": "2022-07-10T14:00:00Z",
+      "exit_time": "2022-07-11T01:00:00Z",
+      "entry_price": 20874.351959999996,
+      "exit_price": 20555.18,
+      "size": 0.0047857820971655175,
+      "pnl": -1.7257601644333083,
+      "return_pct": -0.017274859245977412,
+      "direction": "long",
+      "exit_reason": "signal"
+    }
+  },
+  "gauntlet": {
+    "composite_score": 43.24999603089288,
+    "verdict": "mixed_signals",
+    "explanation": "Mixed signals (score 43/100). Some checks support the strategy and others raise concerns \u2014 treat the headline return with caution. Deflated Sharpe: probability the edge is real = 0.00. Walk-forward: out-of-sample returns degraded to 0.00\u00d7 in-sample (degradation ratio).",
+    "confidence_band": [
+      33.24999603089288,
+      53.24999603089288
+    ],
+    "walk_forward": {
+      "degradation_ratio": 0.0,
+      "degradation_ratio_valid": false,
+      "in_sample_avg_return": -0.0003622238053309819,
+      "out_of_sample_avg_return": -0.0003717893907241865,
+      "out_of_sample_positive_rate": 0.0,
+      "consistency_score": 0.9996564111971415,
+      "n_windows_actual": 6,
+      "oos_positive_windows": 0,
+      "windows": [
+        {
+          "i": 0,
+          "is_ret": -0.0010596224523805597,
+          "oos_ret": -0.000295539749789131,
+          "is_sharpe": -2.618866313448783,
+          "oos_sharpe": -2.2654694955905574,
+          "is_trades": 10,
+          "oos_trades": 4
+        },
+        {
+          "i": 1,
+          "is_ret": -0.0004909205711451925,
+          "oos_ret": -0.00010542796612611482,
+          "is_sharpe": -1.2934792465898863,
+          "oos_sharpe": -2.6391661435687372,
+          "is_trades": 14,
+          "oos_trades": 1
+        },
+        {
+          "i": 2,
+          "is_ret": -5.8094631099070426e-05,
+          "oos_ret": -0.0005601200759405289,
+          "is_sharpe": -0.1705737102347603,
+          "oos_sharpe": -1.6259073180243908,
+          "is_trades": 15,
+          "oos_trades": 9
+        },
+        {
+          "i": 3,
+          "is_ret": -0.0014879516918987479,
+          "oos_ret": -0.00034133468536512446,
+          "is_sharpe": -3.6281236464405513,
+          "oos_sharpe": -2.081183975917972,
+          "is_trades": 13,
+          "oos_trades": 4
+        },
+        {
+          "i": 4,
+          "is_ret": 0.0009100450703822816,
+          "oos_ret": -0.0003707595024423638,
+          "is_sharpe": 2.105130583979378,
+          "oos_sharpe": -2.6782135744228603,
+          "is_trades": 12,
+          "oos_trades": 5
+        },
+        {
+          "i": 5,
+          "is_ret": 1.3201444155397368e-05,
+          "oos_ret": -0.0005575543646818559,
+          "is_sharpe": 0.053953062051279824,
+          "oos_sharpe": -3.7345201216110424,
+          "is_trades": 7,
+          "oos_trades": 8
+        }
+      ]
+    },
+    "parameter_sweep": {
+      "peakiness_score": 0.0,
+      "n_combinations": 5,
+      "baseline_return_pct": -0.0037898616334390844,
+      "baseline_rank_percentile": 0.6,
+      "best_in_grid_return": -0.00293088273444031,
+      "worst_in_grid_return": -0.005124624699889169,
+      "neighborhood_avg_return": -0.0035083957819045386,
+      "skipped_reason": null
+    },
+    "monte_carlo": {
+      "p_value": 0.02,
+      "n_permutations": 50,
+      "real_return_pct": -0.0037898616334390844,
+      "percentile_rank": 0.98,
+      "synthetic_mean_return": -0.009027627686554834
+    },
+    "deflated_sharpe": {
+      "prob_real_v2": 3.307589263396786e-07,
+      "deflated_sharpe_ratio": -3.603801376454663,
+      "observed_sharpe": -1.0731984832529784,
+      "expected_max_sharpe": 2.5306028932016846,
+      "n_observations": 4,
+      "t_years": 3.9176940639269406
+    },
+    "contributions": [
+      {
+        "name": "walk_forward",
+        "label": "Walk-forward degradation",
+        "raw_value": 0.0,
+        "weight": 0.35,
+        "contribution_pts": 75.0
+      },
+      {
+        "name": "parameter_sweep",
+        "label": "Parameter peakiness",
+        "raw_value": 0.0,
+        "weight": 0.25,
+        "contribution_pts": 0.0
+      },
+      {
+        "name": "monte_carlo",
+        "label": "Monte Carlo p-value",
+        "raw_value": 0.02,
+        "weight": 0.25,
+        "contribution_pts": 7.999999999999999
+      },
+      {
+        "name": "deflated_sharpe",
+        "label": "Deflated Sharpe probability",
+        "raw_value": 3.307589263396786e-07,
+        "weight": 0.15,
+        "contribution_pts": 99.99997353928589
+      }
+    ]
+  }
+}

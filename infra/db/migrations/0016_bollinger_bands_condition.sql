@@ -1,0 +1,22 @@
+-- v1.3 — BollingerBandsCondition (volatility-band mean-reversion + squeeze breakout).
+--
+-- This primitive is a new variant of the Condition discriminated union
+-- (discriminator type="bollinger_bands"). Strategy specs are persisted as
+-- JSON in `spec_json` (extracted_strategies) and in
+-- `trader_strategy_versions.parameters` for seeded strategies — the
+-- Condition union is NOT a relational column, so there is NO table or
+-- CHECK constraint to widen for a new Condition variant.
+--
+-- This migration is therefore a forward-only marker recording when the
+-- primitive entered the schema, mirroring how the other v1.2 / v1.3
+-- Condition additions (TimeOfDayCondition, DayOfWeekCondition) needed no
+-- DDL. It is a deliberate no-op so the file-based migration runner records
+-- it in `_schema_migrations` exactly once.
+--
+-- Fields (see shared/.../strategy_spec/conditions.py BollingerBandsCondition):
+--   period:int 2..100 (default 20); num_std:float (0,5] (default 2.0);
+--   source default "close"; form in {below_lower, above_upper, squeeze};
+--   squeeze_window int 2..10_000 + squeeze_percentile float [0,1] —
+--   both required iff form=="squeeze", both forbidden otherwise.
+
+SELECT 1;

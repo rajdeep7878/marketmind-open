@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "name": "Bollinger Breakout",
+  "description": "Long SOL 1h on close above upper Bollinger band; trail 2% or exit after 48 bars.",
+  "instrument": { "symbol": "SOL/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "1h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "compare",
+      "left": { "kind": "price", "field": "close" },
+      "op": ">",
+      "right": {
+        "kind": "indicator",
+        "name": "bollinger",
+        "params": { "period": 20, "std_dev": 2.0 },
+        "component": "upper"
+      }
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "trailing_percent", "value": 0.02 } },
+      { "type": "time", "max_bars_held": 48 }
+    ]
+  },
+  "position_sizing": { "mode": "fixed_quantity", "quantity": 0.5 }
+}

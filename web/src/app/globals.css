@@ -1,0 +1,384 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Two themes, one design system.
+ *
+ *   :root  — Editorial Quant (Phase 5.1).
+ *            Warm cream canvas, oxblood accent, forest/oxblood
+ *            positive/negative. Reads like an FT op-ed.
+ *
+ *   .dark  — Honest Terminal (Phase 5.1b).
+ *            Warm near-black canvas, amber accent, muted forest +
+ *            oxblood. Reads like a hedge-fund risk dashboard built
+ *            with care. NOT cyberpunk; NOT Linear-style cool-grey.
+ *
+ * Typography, spacing, border radii, motion policy — IDENTICAL across
+ * themes. Only colours change. Adding a token requires updating both
+ * blocks here AND the Tailwind theme.extend.colors map.
+ */
+
+:root {
+  --color-bg: #faf8f3;
+  --color-surface: #ffffff;
+  --color-ink: #1a1815;
+  --color-muted: #5c5852;
+  --color-hairline: #e5e1d8;
+  --color-accent: #8b3a1f;
+  --color-positive: #2d5a3d;
+  --color-negative: #8b2c2c;
+  --color-fill: #f0ebe0;
+
+  /* ── Liquid glass tokens ─────────────────────────────────────────
+   * Added for the macOS Tahoe / iOS 18-style nav rail + palette.
+   * Kept here in globals.css (not in tailwind.config.ts) because
+   * they encode RGBA / shadow lists that don't compose cleanly into
+   * Tailwind's colour map — and they need theme-dependent values
+   * the locked palette tokens don't cover.
+   *
+   * --glass-tint            Translucent surface fill. The element's
+   *                          `background-color`. color-mix() keeps it
+   *                          tied to the locked --color-surface token
+   *                          while letting backdrop-filter show through.
+   * --glass-tint-hover      Same fill bumped one step more opaque so
+   *                          interaction reads as the glass "warming".
+   * --glass-highlight       Inset 1px top edge — what makes glass
+   *                          look like it has a real surface under light.
+   * --glass-border          Hairline border for the glass perimeter.
+   *                          Semi-transparent so it floats over content.
+   * --glass-overlay-from /  Vertical gradient overlay; simulates the
+   *   --glass-overlay-to    way light falls on a glass surface.
+   * --glass-shadow          Soft outer drop. Low spread, gentle offset.
+   * --glass-shadow-hover    Slightly deeper version for hover/elevation.
+   * --glass-accent-tint     Selected-row tint inside the palette
+   *                          (accent at low alpha). Themed so dark mode
+   *                          uses the amber accent at higher alpha.
+   * --ease-spring           Subtle overshoot — Apple's interaction
+   *                          curve. Hover, palette open.
+   * --ease-out-quart        Smooth deceleration. Backdrop fades,
+   *                          colour transitions, close animations.
+   */
+  --glass-tint: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  --glass-tint-hover: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  --glass-highlight: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-overlay-from: rgba(255, 255, 255, 0.18);
+  --glass-overlay-to: rgba(255, 255, 255, 0);
+  --glass-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.06);
+  --glass-shadow-hover: 0 12px 32px -8px rgba(0, 0, 0, 0.14), 0 4px 10px -2px rgba(0, 0, 0, 0.08);
+  --glass-accent-tint: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.dark {
+  --color-bg: #0e0e0c;
+  --color-surface: #16161a;
+  --color-ink: #e8e4d8;
+  --color-muted: #8a8478;
+  --color-hairline: #2a2826;
+  --color-accent: #d49a3a;
+  --color-positive: #5fa572;
+  --color-negative: #c5564a;
+  --color-fill: #1f1e1b;
+
+  /* Dark mode glass: less tinted (more "see-through"), slightly
+   * luminous inner highlight, deeper outer shadow, warmer accent
+   * selection tint. */
+  --glass-tint: color-mix(in srgb, var(--color-surface) 45%, transparent);
+  --glass-tint-hover: color-mix(in srgb, var(--color-surface) 58%, transparent);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-overlay-from: rgba(255, 255, 255, 0.06);
+  --glass-overlay-to: rgba(255, 255, 255, 0);
+  --glass-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.5), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+  --glass-shadow-hover: 0 16px 40px -8px rgba(0, 0, 0, 0.6), 0 4px 10px -2px rgba(0, 0, 0, 0.5);
+  --glass-accent-tint: color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-ibm-plex-sans), "Helvetica Neue", sans-serif;
+    font-feature-settings:
+      "kern" 1,
+      "liga" 1;
+  }
+
+  /* Display headings always render in the serif. Page authors still
+   * pick the size with Tailwind text-* utilities. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-source-serif-4), Georgia, serif;
+    font-weight: 400;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+
+  h1 {
+    line-height: 1.05;
+  }
+
+  ::selection {
+    background: var(--color-fill);
+    color: var(--color-ink);
+  }
+
+  /* Numbers are tabular by default. The .tnum class applies the same
+   * rule explicitly when the parent context doesn't inherit. */
+  .num,
+  .tnum,
+  td.num,
+  th.num {
+    font-family: var(--font-ibm-plex-mono), Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Eyebrow: small, all-caps, tracked. Used above every section head. */
+  .eyebrow {
+    font-family: var(--font-ibm-plex-sans), sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* Rule: a thin hairline used between editorial sections. */
+  .rule {
+    border-top: 1px solid var(--color-hairline);
+  }
+}
+
+@layer components {
+  /* ── Liquid glass surfaces ────────────────────────────────────────
+   * Three classes form the system:
+   *   .liquid-glass         Standard glass — pill, theme toggle.
+   *                          20px blur + 180% saturate baseline.
+   *   .liquid-glass--panel   Modal-strength glass — palette panel.
+   *                          40px blur, slightly more opaque tint.
+   *   .liquid-glass--inner   Glass-inside-glass — the ⌘K kbd badge,
+   *                          the search-icon plate. Inset shadow
+   *                          instead of outer; no own blur.
+   *
+   * Each surface gets:
+   *   - Multi-layer backdrop-filter (blur + saturate)
+   *   - Translucent surface tint (theme-aware via --glass-tint)
+   *   - Inset top highlight (the "light catches the edge" effect)
+   *   - Outer soft shadow for elevation
+   *   - A ::before vertical gradient overlay for the "light falls
+   *     across the glass" feel
+   *
+   * Background-color + box-shadow transition for free so a theme
+   * toggle fades the glass tint rather than snapping it.
+   */
+  .liquid-glass {
+    position: relative;
+    background-color: var(--glass-tint);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 0 var(--glass-highlight),
+      var(--glass-shadow);
+    transition:
+      background-color 200ms var(--ease-out-quart),
+      box-shadow 200ms var(--ease-out-quart),
+      border-color 200ms var(--ease-out-quart);
+  }
+
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      to bottom,
+      var(--glass-overlay-from),
+      var(--glass-overlay-to)
+    );
+    pointer-events: none;
+    /* Transition the overlay too so theme-swap fades cleanly. */
+    transition: background 200ms var(--ease-out-quart);
+  }
+
+  .liquid-glass--panel {
+    background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+  }
+
+  .liquid-glass--inner {
+    /* No own backdrop-filter — sits inside another glass element. */
+    background-color: color-mix(
+      in srgb,
+      var(--color-surface) 50%,
+      transparent
+    );
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 0 var(--glass-highlight),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .liquid-glass--inner {
+    box-shadow:
+      inset 0 1px 0 0 var(--glass-highlight),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Interactive glass hover/active. Opt-in via .liquid-glass--interactive
+   * so display-only glass (kbd badge) doesn't inherit the cursor
+   * scale. Spring curve mirrors Apple's interaction physics. */
+  .liquid-glass--interactive {
+    cursor: pointer;
+    transition:
+      background-color 200ms var(--ease-out-quart),
+      box-shadow 200ms var(--ease-out-quart),
+      border-color 200ms var(--ease-out-quart);
+  }
+
+  .liquid-glass--interactive:hover {
+    background-color: var(--glass-tint-hover);
+    box-shadow:
+      inset 0 1px 0 0 var(--glass-highlight),
+      var(--glass-shadow-hover);
+  }
+
+  /* Motion-OK overrides: scale only fires when the user hasn't
+   * asked us to reduce motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .liquid-glass--interactive {
+      transition:
+        background-color 200ms var(--ease-out-quart),
+        box-shadow 200ms var(--ease-out-quart),
+        border-color 200ms var(--ease-out-quart),
+        transform 200ms var(--ease-spring);
+    }
+    .liquid-glass--interactive:hover {
+      transform: scale(1.04);
+    }
+    .liquid-glass--interactive:active {
+      transform: scale(0.96);
+      transition: transform 80ms var(--ease-out-quart);
+    }
+  }
+
+  /* Focus ring — accent-coloured, glass-rendered. */
+  .liquid-glass--interactive:focus-visible {
+    outline: none;
+    box-shadow:
+      inset 0 1px 0 0 var(--glass-highlight),
+      var(--glass-shadow-hover),
+      0 0 0 2px var(--color-bg),
+      0 0 0 4px color-mix(in srgb, var(--color-accent) 60%, transparent);
+  }
+
+  /* Section-pane separator: fades transparent → opaque → transparent.
+   * Used between palette sections (RECENT / PAGES / ACTIONS) for
+   * the soft Apple-system-pane separator feel. */
+  .pane-rule {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-hairline) 20%,
+      var(--color-hairline) 80%,
+      transparent
+    );
+  }
+
+  /* Command-palette row stagger. Pure CSS keyframe so each row
+   * fades in independently with a per-index `animation-delay`
+   * applied inline — no JS animation loop, no re-render churn.
+   * Falls within the motion policy because the palette is a
+   * "genuine state change" (the only animated surface in the app
+   * besides the existing chart hover). */
+  @keyframes paletteRowIn {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Reduced-motion: keep opacity changes (so users still get
+     * the "I just opened something" feedback) but drop spatial
+     * animations. The row stagger collapses to a single-frame fade. */
+    @keyframes paletteRowIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Pull-quote / callout block. Default = oxblood left edge for
+   * concerns; .callout-positive = forest left edge for affirmations. */
+  .callout {
+    border: 1px solid var(--color-hairline);
+    border-left: 2px solid var(--color-negative);
+    background: var(--color-surface);
+    padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+  }
+
+  .callout-positive {
+    border-left-color: var(--color-positive);
+  }
+
+  /* Editorial table styling. Hairline dividers; tabular mono on
+   * .num cells; right-aligned numerics. */
+  table.editorial {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table.editorial thead th {
+    font-family: var(--font-ibm-plex-sans), sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    text-align: left;
+    padding: 0.75rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  table.editorial tbody td {
+    padding: 0.625rem 0.75rem 0.625rem 0;
+    border-bottom: 1px solid var(--color-hairline);
+    font-size: 0.9375rem;
+    vertical-align: top;
+  }
+
+  table.editorial tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  table.editorial .num,
+  table.editorial td.num {
+    text-align: right;
+    font-family: var(--font-ibm-plex-mono), monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}

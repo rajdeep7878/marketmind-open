@@ -1,0 +1,26 @@
+-- v1.3 schema primitive: ZScoreCondition (statistical mean-reversion).
+--
+-- Forward-only comment marker. This migration records the introduction
+-- of the 15th Condition variant, `type="zscore"` — a stateless gate on
+-- the rolling z-score of a price source:
+--
+--   z[t] = (source[t] - SMA(source, period)[t])
+--          / StdDev(source, period)[t]
+--
+-- with form in {below_neg, above_pos, cross_toward_zero}. The z-score is
+-- composed INLINE from the existing sma + stddev whitelist math; no new
+-- indicator function is added.
+--
+-- There is NO DDL change. StrategySpec instances (and therefore every
+-- Condition variant) are persisted as JSON in the `spec_json` column of
+-- `extracted_strategies` and inside `trader_strategy_versions.parameters`
+-- for the SpecTemplate path. A new discriminated-union variant adds no
+-- new table, column, or CHECK constraint — the JSON column accepts the
+-- new shape transparently. This marker exists only to keep the migration
+-- ledger in lockstep with the schema package, mirroring the additive
+-- v1.2 Condition additions (TimeOfDayCondition / DayOfWeekCondition,
+-- which likewise required no migration DDL).
+--
+-- Safe to apply on a populated DB: it is a no-op.
+
+SELECT 1;

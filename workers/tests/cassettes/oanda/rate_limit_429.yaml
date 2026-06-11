@@ -1,0 +1,24 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Datetime-Format:
+      - RFC3339
+      Authorization:
+      - Bearer DUMMY_API_TOKEN_FOR_CASSETTE
+    method: GET
+    uri: https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles?granularity=H1&count=5&price=M
+  response:
+    body:
+      string: '{"errorMessage":"Rate limit exceeded","errorCode":"RATE_LIMIT_EXCEEDED"}'
+    headers:
+      Content-Type:
+      - application/json
+      Retry-After:
+      - '30'
+    status:
+      code: 429
+      message: Too Many Requests
+version: 1

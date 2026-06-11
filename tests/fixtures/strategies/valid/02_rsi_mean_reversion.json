@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "name": "RSI Mean Reversion",
+  "description": "Long ETH 4h when RSI(14) drops below 30; exit on overbought or 5% stop.",
+  "instrument": { "symbol": "ETH/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "4h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "crossover",
+      "series": { "kind": "indicator", "name": "rsi", "params": { "period": 14 } },
+      "threshold": { "kind": "constant", "value": 30 },
+      "direction": "below"
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      {
+        "type": "condition",
+        "condition": {
+          "type": "crossover",
+          "series": { "kind": "indicator", "name": "rsi", "params": { "period": 14 } },
+          "threshold": { "kind": "constant", "value": 70 },
+          "direction": "above"
+        }
+      },
+      { "type": "stop_loss", "method": { "kind": "percent", "value": 0.05 } }
+    ]
+  },
+  "position_sizing": { "mode": "fixed_percent_equity", "percent": 0.1 }
+}

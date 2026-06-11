@@ -1,0 +1,49 @@
+{
+  "schema_version": "2.0",
+  "name": "Turtle System 1 — 20-bar breakout with skip-after-winner",
+  "description": "Classic Turtle System 1: go long on a breakout of the prior 20-bar high, but SKIP the entry if the previous breakout would have been a winner (a skipped breakout is scored as a phantom trade, so the rule keeps tracking each new breakout). Exit on a breakout of the prior 10-bar low or a 2-ATR stop.",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "4h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "and",
+      "conditions": [
+        {
+          "type": "compare",
+          "left": { "kind": "price", "field": "close" },
+          "op": ">",
+          "right": {
+            "kind": "lagged",
+            "expression": { "kind": "indicator", "name": "highest", "params": { "period": 20, "source": "high" } },
+            "bars_ago": 1
+          }
+        },
+        {
+          "type": "not",
+          "condition": { "type": "prior_signal", "predicate": "last_would_have_won" }
+        }
+      ]
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "atr_multiple", "atr_period": 14, "mult": 2 } },
+      {
+        "type": "condition",
+        "condition": {
+          "type": "compare",
+          "left": { "kind": "price", "field": "close" },
+          "op": "<",
+          "right": {
+            "kind": "lagged",
+            "expression": { "kind": "indicator", "name": "lowest", "params": { "period": 10, "source": "low" } },
+            "bars_ago": 1
+          }
+        }
+      }
+    ]
+  },
+  "position_sizing": { "mode": "fixed_percent_equity", "percent": 0.5 }
+}

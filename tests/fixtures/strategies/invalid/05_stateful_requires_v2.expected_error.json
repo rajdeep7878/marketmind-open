@@ -1,0 +1,5 @@
+{
+  "error_code": "stateful_requires_schema_v2",
+  "field_path": "",
+  "message_contains": "schema_version"
+}

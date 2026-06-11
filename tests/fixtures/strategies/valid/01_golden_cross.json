@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "name": "Golden Cross",
+  "description": "Buy when SMA(50) crosses above SMA(200); exit on opposite cross.",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "1d",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "crossover",
+      "series": { "kind": "indicator", "name": "sma", "params": { "period": 50 } },
+      "threshold": { "kind": "indicator", "name": "sma", "params": { "period": 200 } },
+      "direction": "above"
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      {
+        "type": "condition",
+        "condition": {
+          "type": "crossover",
+          "series": { "kind": "indicator", "name": "sma", "params": { "period": 50 } },
+          "threshold": { "kind": "indicator", "name": "sma", "params": { "period": 200 } },
+          "direction": "below"
+        }
+      }
+    ]
+  },
+  "position_sizing": { "mode": "fixed_percent_equity", "percent": 1.0 }
+}

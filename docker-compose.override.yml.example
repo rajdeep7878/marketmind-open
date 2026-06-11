@@ -1,0 +1,27 @@
+# Copy this file to docker-compose.override.yml (gitignored) for local dev tweaks.
+# docker compose auto-merges the override on top of docker-compose.yml.
+#
+# Recommended macOS workflow: disable the in-Docker `web` service and run
+# `pnpm dev` on the host. Bind-mounting node_modules across the macOS VFS
+# is slow and Next.js HMR drops file-watch events. Running web on the host
+# gets you instant HMR while keeping the rest of the stack in Docker.
+
+services:
+  # Comment in to remove the web container from the stack:
+  # web:
+  #   profiles: ["disabled"]
+
+  # Live-reload Python services by bind-mounting source + running uvicorn
+  # with --reload. Comment in to opt in:
+  # api:
+  #   command: ["uvicorn", "marketmind_api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+  #   volumes:
+  #     - ./api/src:/app/api/src
+  #     - ./shared/src:/app/shared/src
+  #     - ./data:/data
+
+  # worker:
+  #   volumes:
+  #     - ./workers/src:/app/workers/src
+  #     - ./shared/src:/app/shared/src
+  #     - ./data:/data

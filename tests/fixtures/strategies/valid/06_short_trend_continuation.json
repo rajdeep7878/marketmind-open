@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "name": "Short Trend Continuation",
+  "description": "Short BNB 4h when EMA(20) is below EMA(50) and price is below EMA(20); exit on golden cross or 1.5*ATR stop.",
+  "instrument": { "symbol": "BNB/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "4h",
+  "direction": "short",
+  "entry": {
+    "condition": {
+      "type": "and",
+      "conditions": [
+        {
+          "type": "compare",
+          "left": { "kind": "indicator", "name": "ema", "params": { "period": 20 } },
+          "op": "<",
+          "right": { "kind": "indicator", "name": "ema", "params": { "period": 50 } }
+        },
+        {
+          "type": "compare",
+          "left": { "kind": "price", "field": "close" },
+          "op": "<",
+          "right": { "kind": "indicator", "name": "ema", "params": { "period": 20 } }
+        }
+      ]
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      {
+        "type": "condition",
+        "condition": {
+          "type": "crossover",
+          "series": { "kind": "indicator", "name": "ema", "params": { "period": 20 } },
+          "threshold": { "kind": "indicator", "name": "ema", "params": { "period": 50 } },
+          "direction": "above"
+        }
+      },
+      { "type": "stop_loss", "method": { "kind": "atr_multiple", "atr_period": 14, "mult": 1.5 } }
+    ]
+  },
+  "position_sizing": { "mode": "risk_based", "risk_percent": 0.015 }
+}

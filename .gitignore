@@ -1,0 +1,100 @@
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+!infra/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+dist/
+build/
+*.dist-info/
+.venv/
+venv/
+env/
+ENV/
+
+# uv
+# Lockfile IS committed; venvs and caches are not.
+.uv-cache/
+
+# Node / Next.js
+node_modules/
+.pnpm-store/
+.next/
+out/
+.turbo/
+.vercel/
+*.tsbuildinfo
+.eslintcache
+
+# Generated TS code (json-schema-to-typescript output) — regenerated locally.
+# schemas.json IS committed; CI verifies it matches what Pydantic emits.
+web/src/types/generated/schemas.ts
+
+# Market data cache — never commit OHLCV parquet files
+data/*
+!data/.gitkeep
+
+# FTR (Phase D) — OHLCV caches, L1/L2 recordings, model artifacts and
+# validation outputs all live under data/ftr/ (covered by data/* above;
+# listed for clarity). KILLSWITCH is the paper-trader halt sentinel.
+data/ftr/
+KILLSWITCH
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Docker
+docker-compose.override.yml
+
+# Local secrets / scratch
+secrets/
+scratch/
+*.pem
+*.key
+
+# Claude Code per-user settings (project-wide settings.json IS committed)
+.claude/settings.local.json
+.claude/
+
+# Public-repo hardening: market-data files are redistribution-restricted by
+# exchange ToS and must never be committed — regenerate via the fetch
+# scripts (workers/scripts/fetch_perp_fixture.py, marketmind_workers.ftr.data.fetch_all,
+# workers/scripts/fetch_eurusd_2025_fixture.py).
+*.parquet
+tests/fixtures/market/
+# ML model artifacts are reproducible from the validation runner; never commit.
+*.pkl
+*.joblib
+*.ubj

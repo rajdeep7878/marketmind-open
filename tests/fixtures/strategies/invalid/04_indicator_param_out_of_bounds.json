@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "name": "Invalid: RSI period out of bounds",
+  "description": "RSI period=1 is below the [2,100] valid range.",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "1h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "crossover",
+      "series": { "kind": "indicator", "name": "rsi", "params": { "period": 1 } },
+      "threshold": { "kind": "constant", "value": 30 },
+      "direction": "below"
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "percent", "value": 0.05 } }
+    ]
+  }
+}

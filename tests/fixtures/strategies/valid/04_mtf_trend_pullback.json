@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "name": "MTF Trend Pullback",
+  "description": "BTC 15m pullback long with 1h trend filter and engulfing confirmation.",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "15m",
+  "filter_timeframe": "1h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "and",
+      "conditions": [
+        {
+          "type": "rising",
+          "series": { "kind": "indicator", "name": "ema", "params": { "period": 50 } },
+          "lookback": 5,
+          "strict": false,
+          "timeframe": "1h"
+        },
+        {
+          "type": "within_last_n_bars",
+          "n": 3,
+          "condition": {
+            "type": "compare",
+            "left": { "kind": "price", "field": "low" },
+            "op": "<=",
+            "right": { "kind": "indicator", "name": "ema", "params": { "period": 20 } }
+          }
+        },
+        { "type": "candle_pattern", "pattern": "bullish_engulfing" }
+      ]
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "atr_multiple", "atr_period": 14, "mult": 2.0 } },
+      { "type": "take_profit", "method": { "kind": "r_multiple", "r": 3 } }
+    ]
+  },
+  "position_sizing": { "mode": "risk_based", "risk_percent": 0.01 }
+}

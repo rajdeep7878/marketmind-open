@@ -1,0 +1,5 @@
+{
+  "error_code": "filter_tf_must_be_higher",
+  "field_path": "",
+  "message_contains": "filter_timeframe must be higher than primary_timeframe"
+}

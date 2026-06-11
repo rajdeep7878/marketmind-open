@@ -1,0 +1,5 @@
+{
+  "error_code": "indicator_param_out_of_bounds",
+  "field_path": "entry.condition",
+  "message_contains": "rsi.period must be between 2 and 100"
+}

@@ -1,0 +1,5 @@
+{
+  "error_code": "risk_based_requires_stop_loss",
+  "field_path": "",
+  "message_contains": "risk_based sizing requires a stop_loss exit"
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "name": "20-Bar Breakout with Volume",
+  "description": "Long on breakout of 20-bar high with above-average volume; risk 1% per trade; 2R target.",
+  "instrument": { "symbol": "SOL/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "1h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "and",
+      "conditions": [
+        {
+          "type": "compare",
+          "left": { "kind": "price", "field": "close" },
+          "op": ">",
+          "right": {
+            "kind": "lagged",
+            "expression": { "kind": "indicator", "name": "highest", "params": { "period": 20, "source": "high" } },
+            "bars_ago": 1
+          }
+        },
+        {
+          "type": "compare",
+          "left": { "kind": "price", "field": "volume" },
+          "op": ">",
+          "right": { "kind": "indicator", "name": "volume_sma", "params": { "period": 20 } }
+        }
+      ]
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "atr_multiple", "atr_period": 14, "mult": 1.5 } },
+      { "type": "take_profit", "method": { "kind": "r_multiple", "r": 2 } }
+    ]
+  },
+  "position_sizing": { "mode": "risk_based", "risk_percent": 0.01 }
+}

@@ -1,0 +1,1691 @@
+{
+  "backtest_id": "6b8d9264-73e0-4231-9e93-6fe59a0fe949",
+  "rerun_metadata": {
+    "rerun_of_analysis_id": "85e40115-f0e0-406a-9d7c-ded992fa4918",
+    "rerun_reason": "Original walk-forward produced OOS/IS = 6.578, driven by low trade count per fold (4-10 OOS trades) combined with an outsized late-2020 bull-run OOS window. Reducing n_windows from 6 to 3 widens each fold to ~2.1y, giving more trades per IS/OOS half and a more statistically meaningful ratio. Sweep cap also lifted from 50 to 200 for symmetry with the Golden Cross re-run.",
+    "params_changed": {
+      "walk_forward n_windows": "6 \u2192 3",
+      "max_cells": "50 \u2192 200"
+    },
+    "params_unchanged": [
+      "walk_forward train_ratio=0.7",
+      "monte_carlo n_permutations=100",
+      "deflated_sharpe n_trials_estimate=100"
+    ],
+    "rerun_at": "2026-05-19T15:31:35.085672Z"
+  },
+  "analysis": {
+    "schema_version": "1.0",
+    "walk_forward": {
+      "windows": [
+        {
+          "window_index": 0,
+          "in_sample_start": "2020-01-01T00:00:00Z",
+          "in_sample_end": "2021-06-27T16:00:00Z",
+          "out_of_sample_start": "2021-06-27T16:00:00Z",
+          "out_of_sample_end": "2022-02-15T16:00:00Z",
+          "in_sample_return_pct": 1.7165291792057853,
+          "in_sample_sharpe": 1.5276839060566114,
+          "in_sample_num_trades": 37,
+          "out_of_sample_return_pct": 0.05897526443644119,
+          "out_of_sample_sharpe": 0.4226857654284454,
+          "out_of_sample_num_trades": 18
+        },
+        {
+          "window_index": 1,
+          "in_sample_start": "2022-02-15T16:00:00Z",
+          "in_sample_end": "2023-08-13T08:00:00Z",
+          "out_of_sample_start": "2023-08-13T08:00:00Z",
+          "out_of_sample_end": "2024-04-02T08:00:00Z",
+          "in_sample_return_pct": -0.16807030818175095,
+          "in_sample_sharpe": -0.17944294936370023,
+          "in_sample_num_trades": 39,
+          "out_of_sample_return_pct": 0.923593337350908,
+          "out_of_sample_sharpe": 3.001816907484604,
+          "out_of_sample_num_trades": 12
+        },
+        {
+          "window_index": 2,
+          "in_sample_start": "2024-04-02T08:00:00Z",
+          "in_sample_end": "2025-09-28T00:00:00Z",
+          "out_of_sample_start": "2025-09-28T00:00:00Z",
+          "out_of_sample_end": "2026-05-19T00:00:00Z",
+          "in_sample_return_pct": 0.0712099999144038,
+          "in_sample_sharpe": 0.30392295551579607,
+          "in_sample_num_trades": 37,
+          "out_of_sample_return_pct": -0.30918861899094396,
+          "out_of_sample_sharpe": -2.206484680945585,
+          "out_of_sample_num_trades": 17
+        }
+      ],
+      "in_sample_avg_return": 0.539889623646146,
+      "out_of_sample_avg_return": 0.2244599942654684,
+      "degradation_ratio": 0.41575163595398856,
+      "degradation_ratio_valid": true,
+      "out_of_sample_positive_rate": 0.6666666666666666,
+      "consistency_score": 0.4413715911906928,
+      "train_ratio": 0.7,
+      "n_windows_requested": 3,
+      "n_windows_actual": 3
+    },
+    "parameter_sweep": {
+      "axes": [
+        {
+          "kind": "indicator_period",
+          "label": "Indicator period (14)",
+          "values": [
+            7.0,
+            10.0,
+            14.0,
+            18.0,
+            24.0
+          ],
+          "baseline_value": 14.0,
+          "target_paths": [
+            "entry/condition/conditions/1/left/params/period"
+          ]
+        },
+        {
+          "kind": "indicator_period",
+          "label": "Indicator period (16)",
+          "values": [
+            8.0,
+            12.0,
+            16.0,
+            20.0,
+            28.0
+          ],
+          "baseline_value": 16.0,
+          "target_paths": [
+            "entry/condition/conditions/0/series/params/period",
+            "exit/exits/0/condition/series/params/period"
+          ]
+        },
+        {
+          "kind": "indicator_period",
+          "label": "Indicator period (64)",
+          "values": [
+            32.0,
+            48.0,
+            64.0,
+            80.0,
+            112.0
+          ],
+          "baseline_value": 64.0,
+          "target_paths": [
+            "entry/condition/conditions/0/threshold/params/period",
+            "exit/exits/0/condition/threshold/params/period"
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.9194966842462642,
+          "sharpe_ratio": 0.6171074304459104,
+          "num_trades": 332,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 3.0506295525084575,
+          "sharpe_ratio": 0.7400883720802666,
+          "num_trades": 267,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.5272910470786862,
+          "sharpe_ratio": 0.6916009894833083,
+          "num_trades": 236,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.466145268305703,
+          "sharpe_ratio": 0.5544764069222013,
+          "num_trades": 214,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 0.9826011925162548,
+          "sharpe_ratio": 0.468967300008995,
+          "num_trades": 174,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.784056153574343,
+          "sharpe_ratio": 0.5962079209277477,
+          "num_trades": 289,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.6909320746421996,
+          "sharpe_ratio": 0.7202869546196925,
+          "num_trades": 226,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.0102129829671647,
+          "sharpe_ratio": 0.47349738540863595,
+          "num_trades": 201,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.302247212009672,
+          "sharpe_ratio": 0.5277138279036433,
+          "num_trades": 181,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 1.5831963293450975,
+          "sharpe_ratio": 0.5717414618714196,
+          "num_trades": 147,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.196384929866567,
+          "sharpe_ratio": 0.5110357691557373,
+          "num_trades": 252,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.5892157130739224,
+          "sharpe_ratio": 0.5756944966945757,
+          "num_trades": 192,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.928586956840876,
+          "sharpe_ratio": 0.6233360599894283,
+          "num_trades": 169,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.677542337032629,
+          "sharpe_ratio": 0.40274576805571977,
+          "num_trades": 162,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.6086362984430265,
+          "sharpe_ratio": 0.7031330543692145,
+          "num_trades": 134,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 3.039552637410239,
+          "sharpe_ratio": 0.748817656638724,
+          "num_trades": 226,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.3090260079290643,
+          "sharpe_ratio": 0.5335030190483298,
+          "num_trades": 174,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.594689148520332,
+          "sharpe_ratio": 0.7049003975709157,
+          "num_trades": 151,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.814533144353802,
+          "sharpe_ratio": 0.43385254885917074,
+          "num_trades": 142,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.602053470257231,
+          "sharpe_ratio": 0.7158635115861183,
+          "num_trades": 110,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.8189854629945659,
+          "sharpe_ratio": 0.6090199376007713,
+          "num_trades": 199,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.9241681956459828,
+          "sharpe_ratio": 0.6292336307196879,
+          "num_trades": 147,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 0.24219827759973644,
+          "sharpe_ratio": 0.2791919905367744,
+          "num_trades": 129,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.6859419586894586,
+          "sharpe_ratio": 0.40537739580230536,
+          "num_trades": 120,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 7.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 4.1457688152956695,
+          "sharpe_ratio": 0.868796002281495,
+          "num_trades": 91,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 2.427547870421084,
+          "sharpe_ratio": 0.681285500106031,
+          "num_trades": 323,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.52452618474202,
+          "sharpe_ratio": 0.6881820878967707,
+          "num_trades": 265,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.457371052431997,
+          "sharpe_ratio": 0.6861867608105755,
+          "num_trades": 230,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.6167530314044112,
+          "sharpe_ratio": 0.5781346929113542,
+          "num_trades": 209,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 0.9098507500970503,
+          "sharpe_ratio": 0.4549522916357538,
+          "num_trades": 168,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.9092377688518773,
+          "sharpe_ratio": 0.6138051133075826,
+          "num_trades": 284,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.6909320746421996,
+          "sharpe_ratio": 0.7202869546196925,
+          "num_trades": 226,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.1231096653988288,
+          "sharpe_ratio": 0.4949567191497209,
+          "num_trades": 199,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.2980369159158074,
+          "sharpe_ratio": 0.5268585948457624,
+          "num_trades": 182,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 1.682358122494834,
+          "sharpe_ratio": 0.5865301754733158,
+          "num_trades": 144,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 0.7609439352663832,
+          "sharpe_ratio": 0.4229042645217335,
+          "num_trades": 245,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.8136770052022189,
+          "sharpe_ratio": 0.6073297136257505,
+          "num_trades": 192,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.965230541472589,
+          "sharpe_ratio": 0.6280308560896593,
+          "num_trades": 169,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.6282327317360481,
+          "sharpe_ratio": 0.39104782419135126,
+          "num_trades": 163,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.4441265574856645,
+          "sharpe_ratio": 0.6847099140365184,
+          "num_trades": 136,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 3.149337796066229,
+          "sharpe_ratio": 0.7631886729934086,
+          "num_trades": 218,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.2761533006704533,
+          "sharpe_ratio": 0.5275657293715365,
+          "num_trades": 175,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.3589990673959393,
+          "sharpe_ratio": 0.6773415164385206,
+          "num_trades": 153,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.4107504227015943,
+          "sharpe_ratio": 0.5444595418722472,
+          "num_trades": 145,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.633365956873355,
+          "sharpe_ratio": 0.7189265856290382,
+          "num_trades": 111,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.9127244345875019,
+          "sharpe_ratio": 0.6237068091265697,
+          "num_trades": 193,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.8705539386709424,
+          "sharpe_ratio": 0.6175094885260839,
+          "num_trades": 151,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 0.650446163673851,
+          "sharpe_ratio": 0.3964073430640809,
+          "num_trades": 134,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.688339632807903,
+          "sharpe_ratio": 0.405917268452823,
+          "num_trades": 121,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 10.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 6.691029238107352,
+          "sharpe_ratio": 1.0048191212712516,
+          "num_trades": 93,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 2.9841472182906292,
+          "sharpe_ratio": 0.7573641682324559,
+          "num_trades": 287,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 3.5774865471870587,
+          "sharpe_ratio": 0.800976613214169,
+          "num_trades": 243,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.617473849587766,
+          "sharpe_ratio": 0.7041223566580618,
+          "num_trades": 227,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.8624341461902256,
+          "sharpe_ratio": 0.6139224977858047,
+          "num_trades": 205,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 0.9040489934846574,
+          "sharpe_ratio": 0.4538638211492443,
+          "num_trades": 166,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 3.095072017332731,
+          "sharpe_ratio": 0.7591790361696154,
+          "num_trades": 265,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.6963108015923027,
+          "sharpe_ratio": 0.729701529172731,
+          "num_trades": 211,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.3010019666699253,
+          "sharpe_ratio": 0.5265430593470789,
+          "num_trades": 195,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.3340091936863954,
+          "sharpe_ratio": 0.5331279677177195,
+          "num_trades": 180,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 1.7337458659252478,
+          "sharpe_ratio": 0.5940192403278988,
+          "num_trades": 143,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.6743668566851913,
+          "sharpe_ratio": 0.6038432013041221,
+          "num_trades": 219,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.910464908106143,
+          "sharpe_ratio": 0.623062265178397,
+          "num_trades": 185,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.030769410537694,
+          "sharpe_ratio": 0.63702611326053,
+          "num_trades": 166,
+          "is_baseline": true
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.7895418433572081,
+          "sharpe_ratio": 0.42810728229091394,
+          "num_trades": 160,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.4441265574856645,
+          "sharpe_ratio": 0.6847099140365184,
+          "num_trades": 136,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 2.5097345003537006,
+          "sharpe_ratio": 0.7072717760898627,
+          "num_trades": 205,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.291890605237172,
+          "sharpe_ratio": 0.6707863833492476,
+          "num_trades": 170,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.598220863220258,
+          "sharpe_ratio": 0.7055842929285384,
+          "num_trades": 150,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.4791889613626523,
+          "sharpe_ratio": 0.5554444678913336,
+          "num_trades": 144,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 4.20206472413385,
+          "sharpe_ratio": 0.8477016274479237,
+          "num_trades": 113,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.4591598344198244,
+          "sharpe_ratio": 0.5622806178997988,
+          "num_trades": 182,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.278421782123678,
+          "sharpe_ratio": 0.6725859254217125,
+          "num_trades": 148,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 0.6938670352012726,
+          "sharpe_ratio": 0.40695033830715177,
+          "num_trades": 132,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.688339632807903,
+          "sharpe_ratio": 0.405917268452823,
+          "num_trades": 121,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 14.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 6.691029238107352,
+          "sharpe_ratio": 1.0048191212712516,
+          "num_trades": 93,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 3.5749833748086637,
+          "sharpe_ratio": 0.8541004797929908,
+          "num_trades": 234,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 4.749966953921085,
+          "sharpe_ratio": 0.9068765582632378,
+          "num_trades": 215,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 3.362117122095457,
+          "sharpe_ratio": 0.7795857279708218,
+          "num_trades": 217,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 2.1273217111341,
+          "sharpe_ratio": 0.6519890883256356,
+          "num_trades": 193,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 0.8482069196630866,
+          "sharpe_ratio": 0.4424336073318909,
+          "num_trades": 160,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 4.873971888627376,
+          "sharpe_ratio": 0.9275573512562769,
+          "num_trades": 224,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 3.4896772552836195,
+          "sharpe_ratio": 0.8269428720651737,
+          "num_trades": 191,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.3576801786955075,
+          "sharpe_ratio": 0.5363734719379473,
+          "num_trades": 191,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.1043632148241076,
+          "sharpe_ratio": 0.4931503926036556,
+          "num_trades": 176,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 1.7790068672467294,
+          "sharpe_ratio": 0.6005406680777869,
+          "num_trades": 142,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 2.3092292223821294,
+          "sharpe_ratio": 0.6978904639574163,
+          "num_trades": 202,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.57071114053963,
+          "sharpe_ratio": 0.5783589671185457,
+          "num_trades": 178,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.3668198078327602,
+          "sharpe_ratio": 0.679109438342696,
+          "num_trades": 163,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.599918866304501,
+          "sharpe_ratio": 0.3840414994925326,
+          "num_trades": 159,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.440849124173125,
+          "sharpe_ratio": 0.6855560375727944,
+          "num_trades": 135,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 2.5190200214259857,
+          "sharpe_ratio": 0.721118734771643,
+          "num_trades": 191,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.2885325405383994,
+          "sharpe_ratio": 0.6744985158559882,
+          "num_trades": 163,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.828458088152679,
+          "sharpe_ratio": 0.7315857616419477,
+          "num_trades": 146,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.783237146542995,
+          "sharpe_ratio": 0.4269545409682612,
+          "num_trades": 142,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 4.341305296879835,
+          "sharpe_ratio": 0.86027395496716,
+          "num_trades": 111,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 1.0638120083908444,
+          "sharpe_ratio": 0.49303204115320853,
+          "num_trades": 173,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 2.8873460401902094,
+          "sharpe_ratio": 0.7422290334688154,
+          "num_trades": 144,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 0.3646892232771217,
+          "sharpe_ratio": 0.3180761175191679,
+          "num_trades": 127,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.7907111483365366,
+          "sharpe_ratio": 0.4300016682986001,
+          "num_trades": 119,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 18.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 6.691029238107352,
+          "sharpe_ratio": 1.0048191212712516,
+          "num_trades": 93,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 2.221414233030493,
+          "sharpe_ratio": 0.7278935463751552,
+          "num_trades": 197,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 3.8825418667930913,
+          "sharpe_ratio": 0.8822457163490038,
+          "num_trades": 175,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 3.462074740993308,
+          "sharpe_ratio": 0.8141043956900957,
+          "num_trades": 185,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 2.1611237581681504,
+          "sharpe_ratio": 0.6618956074251704,
+          "num_trades": 174,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 8.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 0.6826148240588872,
+          "sharpe_ratio": 0.4058983047915448,
+          "num_trades": 146,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 4.364187029767278,
+          "sharpe_ratio": 0.9269006574808316,
+          "num_trades": 187,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 4.761752842675153,
+          "sharpe_ratio": 0.9577844478985049,
+          "num_trades": 165,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 1.8752460605936658,
+          "sharpe_ratio": 0.6232582485646985,
+          "num_trades": 173,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.205962252976072,
+          "sharpe_ratio": 0.5157911316332924,
+          "num_trades": 155,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 12.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 1.7865383240834416,
+          "sharpe_ratio": 0.6035948911272728,
+          "num_trades": 136,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 3.6035121140649986,
+          "sharpe_ratio": 0.8581411616868148,
+          "num_trades": 177,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 3.233735385744386,
+          "sharpe_ratio": 0.803173010251932,
+          "num_trades": 156,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.7345160347691184,
+          "sharpe_ratio": 0.7346321575360114,
+          "num_trades": 146,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 0.8519188020975736,
+          "sharpe_ratio": 0.4425191637446661,
+          "num_trades": 148,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 16.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 2.5826413039488108,
+          "sharpe_ratio": 0.704410519941549,
+          "num_trades": 128,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 6.126887762521037,
+          "sharpe_ratio": 1.0426306014889368,
+          "num_trades": 170,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 3.4123731455225057,
+          "sharpe_ratio": 0.8149539480485931,
+          "num_trades": 144,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 2.5969764548621854,
+          "sharpe_ratio": 0.7177611385416554,
+          "num_trades": 132,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.1069792221572214,
+          "sharpe_ratio": 0.4939783498615011,
+          "num_trades": 133,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 20.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 3.0558548250541815,
+          "sharpe_ratio": 0.767919282581441,
+          "num_trades": 105,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 32.0
+          },
+          "total_return_pct": 3.2106835581789683,
+          "sharpe_ratio": 0.8175834186661993,
+          "num_trades": 153,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 48.0
+          },
+          "total_return_pct": 1.7578057277947106,
+          "sharpe_ratio": 0.612311127952076,
+          "num_trades": 130,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 64.0
+          },
+          "total_return_pct": 0.5221732361494846,
+          "sharpe_ratio": 0.3630833974305936,
+          "num_trades": 120,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 80.0
+          },
+          "total_return_pct": 1.2162857894939125,
+          "sharpe_ratio": 0.5172013086209943,
+          "num_trades": 115,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Indicator period (14)": 24.0,
+            "Indicator period (16)": 28.0,
+            "Indicator period (64)": 112.0
+          },
+          "total_return_pct": 4.1457688152956695,
+          "sharpe_ratio": 0.868796002281495,
+          "num_trades": 91,
+          "is_baseline": false
+        }
+      ],
+      "baseline_return_pct": 2.030769410537694,
+      "baseline_rank_percentile": 0.52,
+      "best_in_grid_return": 6.691029238107352,
+      "worst_in_grid_return": 0.24219827759973644,
+      "neighborhood_avg_return": 1.8218799884431471,
+      "peakiness_score": 0.10286220631974084,
+      "n_combinations": 125,
+      "skipped_reason": null
+    },
+    "monte_carlo": {
+      "real_return_pct": 2.030769410537694,
+      "real_sharpe": 0.63702611326053,
+      "n_permutations": 100,
+      "synthetic_mean_return": 1.621320196271946,
+      "synthetic_std_return": 2.320367146704124,
+      "synthetic_min": -0.7249480786164628,
+      "synthetic_max": 11.502246336878612,
+      "histogram": [
+        {
+          "lo": -0.7249480786164628,
+          "hi": -0.2154816446375014,
+          "count": 13
+        },
+        {
+          "lo": -0.2154816446375014,
+          "hi": 0.29398478934146,
+          "count": 24
+        },
+        {
+          "lo": 0.29398478934146,
+          "hi": 0.8034512233204214,
+          "count": 10
+        },
+        {
+          "lo": 0.8034512233204214,
+          "hi": 1.3129176572993828,
+          "count": 13
+        },
+        {
+          "lo": 1.3129176572993828,
+          "hi": 1.8223840912783442,
+          "count": 11
+        },
+        {
+          "lo": 1.8223840912783442,
+          "hi": 2.3318505252573054,
+          "count": 4
+        },
+        {
+          "lo": 2.3318505252573054,
+          "hi": 2.8413169592362673,
+          "count": 5
+        },
+        {
+          "lo": 2.8413169592362673,
+          "hi": 3.3507833932152282,
+          "count": 5
+        },
+        {
+          "lo": 3.3507833932152282,
+          "hi": 3.860249827194189,
+          "count": 2
+        },
+        {
+          "lo": 3.860249827194189,
+          "hi": 4.369716261173151,
+          "count": 3
+        },
+        {
+          "lo": 4.369716261173151,
+          "hi": 4.879182695152113,
+          "count": 1
+        },
+        {
+          "lo": 4.879182695152113,
+          "hi": 5.388649129131074,
+          "count": 2
+        },
+        {
+          "lo": 5.388649129131074,
+          "hi": 5.898115563110035,
+          "count": 1
+        },
+        {
+          "lo": 5.898115563110035,
+          "hi": 6.407581997088997,
+          "count": 0
+        },
+        {
+          "lo": 6.407581997088997,
+          "hi": 6.9170484310679585,
+          "count": 1
+        },
+        {
+          "lo": 6.9170484310679585,
+          "hi": 7.4265148650469195,
+          "count": 1
+        },
+        {
+          "lo": 7.4265148650469195,
+          "hi": 7.9359812990258805,
+          "count": 1
+        },
+        {
+          "lo": 7.9359812990258805,
+          "hi": 8.445447733004842,
+          "count": 1
+        },
+        {
+          "lo": 8.445447733004842,
+          "hi": 8.954914166983805,
+          "count": 0
+        },
+        {
+          "lo": 8.954914166983805,
+          "hi": 9.464380600962766,
+          "count": 0
+        },
+        {
+          "lo": 9.464380600962766,
+          "hi": 9.973847034941727,
+          "count": 0
+        },
+        {
+          "lo": 9.973847034941727,
+          "hi": 10.48331346892069,
+          "count": 1
+        },
+        {
+          "lo": 10.48331346892069,
+          "hi": 10.99277990289965,
+          "count": 0
+        },
+        {
+          "lo": 10.99277990289965,
+          "hi": 11.502246336878612,
+          "count": 1
+        }
+      ],
+      "p_value": 0.27,
+      "percentile_rank": 0.73,
+      "seed": 42
+    },
+    "deflated_sharpe": {
+      "observed_sharpe": 0.63702611326053,
+      "deflated_sharpe_ratio": -1.8935767799411547,
+      "probability_strategy_is_real": 0.0,
+      "n_trials_estimate": 100,
+      "n_observations": 13979,
+      "returns_skewness": 0.0,
+      "returns_kurtosis": 3.0,
+      "expected_max_sharpe": 2.5306028932016846,
+      "method": "lopez_de_prado_full"
+    },
+    "composite": {
+      "score": 52.48759720197317,
+      "verdict": "mixed_signals",
+      "contributions": [
+        {
+          "name": "walk_forward",
+          "label": "Walk-forward degradation",
+          "raw_value": 0.41575163595398856,
+          "weight": 0.35,
+          "contribution_pts": 63.36993456184046
+        },
+        {
+          "name": "parameter_sweep",
+          "label": "Parameter peakiness",
+          "raw_value": 0.10286220631974084,
+          "weight": 0.25,
+          "contribution_pts": 6.8574804213160565
+        },
+        {
+          "name": "monte_carlo",
+          "label": "Monte Carlo p-value",
+          "raw_value": 0.27,
+          "weight": 0.25,
+          "contribution_pts": 54.375
+        },
+        {
+          "name": "deflated_sharpe",
+          "label": "Deflated Sharpe probability",
+          "raw_value": 0.0,
+          "weight": 0.15,
+          "contribution_pts": 100.0
+        }
+      ],
+      "explanation": "Mixed signals (score 52/100). Some checks support the strategy and others raise concerns \u2014 treat the headline return with caution. Deflated Sharpe: probability the edge is real = 0.00. Walk-forward: out-of-sample returns degraded to 0.42\u00d7 in-sample (degradation ratio).",
+      "confidence_band_low": 42.48759720197317,
+      "confidence_band_high": 62.48759720197317
+    },
+    "compute_seconds": 42.6843359370032
+  }
+}

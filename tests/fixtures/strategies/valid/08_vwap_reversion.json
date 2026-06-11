@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "name": "VWAP Reversion",
+  "description": "Long BTC 5m reversion to session VWAP after a sharp drop, gated by above-average volume; exit at VWAP or 1% stop.",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "5m",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "and",
+      "conditions": [
+        {
+          "type": "compare",
+          "left": { "kind": "indicator", "name": "returns", "params": { "period": 12 } },
+          "op": "<",
+          "right": { "kind": "constant", "value": -0.015 }
+        },
+        {
+          "type": "compare",
+          "left": { "kind": "price", "field": "close" },
+          "op": "<",
+          "right": { "kind": "indicator", "name": "vwap", "params": { "session_anchored": true } }
+        },
+        {
+          "type": "not",
+          "condition": {
+            "type": "compare",
+            "left": { "kind": "price", "field": "volume" },
+            "op": "<",
+            "right": {
+              "kind": "scaled",
+              "expression": { "kind": "indicator", "name": "volume_sma", "params": { "period": 20 } },
+              "factor": 0.5
+            }
+          }
+        }
+      ]
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "percent", "value": 0.01 } },
+      {
+        "type": "condition",
+        "condition": {
+          "type": "compare",
+          "left": { "kind": "price", "field": "close" },
+          "op": ">=",
+          "right": { "kind": "indicator", "name": "vwap", "params": { "session_anchored": true } }
+        }
+      }
+    ]
+  },
+  "position_sizing": { "mode": "risk_based", "risk_percent": 0.005 }
+}

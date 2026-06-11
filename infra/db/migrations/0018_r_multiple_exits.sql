@@ -1,0 +1,24 @@
+-- Primitive-4 (RMultipleExit) — fixed risk-reward ATR-anchored PRIMARY exit.
+--
+-- UNAPPLIED MARKER MIGRATION — DO NOT RUN AS A SCHEMA CHANGE.
+--
+-- RMultipleExit is a purely additive SCHEMA primitive: a new variant of the
+-- type-discriminated ExitCondition union in
+-- shared/.../strategy_spec/exit.py. It introduces NO new database table, NO
+-- new column, and NO change to any existing row. A strategy spec is stored
+-- as JSONB in the existing extracted_strategies / trader_strategy_versions
+-- spec columns; an r_multiple exit serialises into that JSON like every
+-- other ExitCondition variant, so no DDL is required.
+--
+-- This file exists only to reserve migration number 0018 and to document,
+-- in the canonical migration ledger, the phase at which the RMultipleExit
+-- primitive entered the schema. The worker's idempotent migration runner
+-- will execute the statement below; it is a deliberate no-op.
+--
+-- RMultipleExit is BACKTEST-ONLY this phase. The live SpecTemplate trader is
+-- NOT taught to decompose the wrapper into a protective stop, so a trader
+-- spec using r_multiple is rejected by spec_template's stop-loss
+-- requirement (acceptable and documented in exit.py's RMultipleExit
+-- docstring). No trader table is affected.
+
+SELECT 1;  -- no-op: RMultipleExit is a JSON-serialised schema variant, no DDL

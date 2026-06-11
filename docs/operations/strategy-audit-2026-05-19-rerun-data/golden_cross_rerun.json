@@ -1,0 +1,1729 @@
+{
+  "backtest_id": "f9a273f4-1149-4743-9336-2f1e2b0f5e56",
+  "rerun_metadata": {
+    "rerun_of_analysis_id": "69aa9c2f-2125-445b-8ab8-a2d18b609cc4",
+    "rerun_reason": "Original parameter sweep dropped the SMA(200) axis to stay under the 50-cell cap. This re-run raises max_cells to 200 so the full 3-axis grid (stop_loss \u00d7 sma50 \u00d7 sma200 = 125) executes.",
+    "params_changed": {
+      "max_cells": "50 \u2192 200"
+    },
+    "params_unchanged": [
+      "walk_forward n_windows=6, train_ratio=0.7",
+      "monte_carlo n_permutations=100",
+      "deflated_sharpe n_trials_estimate=100"
+    ],
+    "rerun_at": "2026-05-19T15:30:52.343185Z"
+  },
+  "analysis": {
+    "schema_version": "1.0",
+    "walk_forward": {
+      "windows": [
+        {
+          "window_index": 0,
+          "in_sample_start": "2020-05-01T00:00:00Z",
+          "in_sample_end": "2021-01-08T00:00:00Z",
+          "out_of_sample_start": "2021-01-08T00:00:00Z",
+          "out_of_sample_end": "2021-04-26T00:00:00Z",
+          "in_sample_return_pct": 3.483575711922292,
+          "in_sample_sharpe": 5.147874312554202,
+          "in_sample_num_trades": 2,
+          "out_of_sample_return_pct": 0.0,
+          "out_of_sample_sharpe": 0.0,
+          "out_of_sample_num_trades": 0
+        },
+        {
+          "window_index": 1,
+          "in_sample_start": "2021-04-26T00:00:00Z",
+          "in_sample_end": "2022-01-03T00:00:00Z",
+          "out_of_sample_start": "2022-01-03T00:00:00Z",
+          "out_of_sample_end": "2022-04-21T00:00:00Z",
+          "in_sample_return_pct": 0.16743155707995983,
+          "in_sample_sharpe": 0.7641714974061571,
+          "in_sample_num_trades": 3,
+          "out_of_sample_return_pct": -0.18455980582550624,
+          "out_of_sample_sharpe": -2.1239877901609736,
+          "out_of_sample_num_trades": 4
+        },
+        {
+          "window_index": 2,
+          "in_sample_start": "2022-04-21T00:00:00Z",
+          "in_sample_end": "2022-12-29T00:00:00Z",
+          "out_of_sample_start": "2022-12-29T00:00:00Z",
+          "out_of_sample_end": "2023-04-16T00:00:00Z",
+          "in_sample_return_pct": -0.2053921922866876,
+          "in_sample_sharpe": -1.0238000246300165,
+          "in_sample_num_trades": 4,
+          "out_of_sample_return_pct": 0.0038790896358362748,
+          "out_of_sample_sharpe": 0.19552666044608075,
+          "out_of_sample_num_trades": 2
+        },
+        {
+          "window_index": 3,
+          "in_sample_start": "2023-04-16T00:00:00Z",
+          "in_sample_end": "2023-12-24T00:00:00Z",
+          "out_of_sample_start": "2023-12-24T00:00:00Z",
+          "out_of_sample_end": "2024-04-10T00:00:00Z",
+          "in_sample_return_pct": 0.6140553374005304,
+          "in_sample_sharpe": 2.759775323510576,
+          "in_sample_num_trades": 2,
+          "out_of_sample_return_pct": 0.5942257923730765,
+          "out_of_sample_sharpe": 3.779178842236555,
+          "out_of_sample_num_trades": 1
+        },
+        {
+          "window_index": 4,
+          "in_sample_start": "2024-04-10T00:00:00Z",
+          "in_sample_end": "2024-12-18T00:00:00Z",
+          "out_of_sample_start": "2024-12-18T00:00:00Z",
+          "out_of_sample_end": "2025-04-05T00:00:00Z",
+          "in_sample_return_pct": 0.38208899225919946,
+          "in_sample_sharpe": 1.5482833797434434,
+          "in_sample_num_trades": 4,
+          "out_of_sample_return_pct": 0.0014547155592310457,
+          "out_of_sample_sharpe": 0.1057637963869911,
+          "out_of_sample_num_trades": 1
+        },
+        {
+          "window_index": 5,
+          "in_sample_start": "2025-04-05T00:00:00Z",
+          "in_sample_end": "2025-12-13T00:00:00Z",
+          "out_of_sample_start": "2025-12-13T00:00:00Z",
+          "out_of_sample_end": "2026-03-31T00:00:00Z",
+          "in_sample_return_pct": -0.20663383930083024,
+          "in_sample_sharpe": -1.9706631522115419,
+          "in_sample_num_trades": 5,
+          "out_of_sample_return_pct": -0.019799937368384368,
+          "out_of_sample_sharpe": -0.28258562907727736,
+          "out_of_sample_num_trades": 1
+        }
+      ],
+      "in_sample_avg_return": 0.7058542611790773,
+      "out_of_sample_avg_return": 0.06586664239570887,
+      "degradation_ratio": 0.09331479034451604,
+      "degradation_ratio_valid": true,
+      "out_of_sample_positive_rate": 0.5,
+      "consistency_score": 0.6502767022681083,
+      "train_ratio": 0.7,
+      "n_windows_requested": 6,
+      "n_windows_actual": 6
+    },
+    "parameter_sweep": {
+      "axes": [
+        {
+          "kind": "stop_loss_pct",
+          "label": "Stop-loss %",
+          "values": [
+            0.04,
+            0.06,
+            0.08,
+            0.1,
+            0.14
+          ],
+          "baseline_value": 0.08,
+          "target_paths": [
+            "exit/exits/1/method/value"
+          ]
+        },
+        {
+          "kind": "indicator_period",
+          "label": "Indicator period (50)",
+          "values": [
+            25.0,
+            38.0,
+            50.0,
+            62.0,
+            88.0
+          ],
+          "baseline_value": 50.0,
+          "target_paths": [
+            "entry/condition/series/params/period",
+            "exit/exits/0/condition/series/params/period"
+          ]
+        },
+        {
+          "kind": "indicator_period",
+          "label": "Indicator period (200)",
+          "values": [
+            100.0,
+            150.0,
+            200.0,
+            250.0,
+            350.0
+          ],
+          "baseline_value": 200.0,
+          "target_paths": [
+            "entry/condition/threshold/params/period",
+            "exit/exits/0/condition/threshold/params/period"
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 12.991047812007528,
+          "sharpe_ratio": 1.3728592496533707,
+          "num_trades": 74,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 5.138842667356876,
+          "sharpe_ratio": 0.9878076190159754,
+          "num_trades": 64,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 12.340278816168526,
+          "sharpe_ratio": 1.3183443070381364,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 7.256544337572711,
+          "sharpe_ratio": 1.1547380314190643,
+          "num_trades": 39,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.876194208607802,
+          "sharpe_ratio": 1.0617106628484,
+          "num_trades": 28,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 5.606543186657809,
+          "sharpe_ratio": 1.0510568645455485,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.786011098364944,
+          "sharpe_ratio": 0.91649978799218,
+          "num_trades": 58,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 10.363939228445377,
+          "sharpe_ratio": 1.3024787455943845,
+          "num_trades": 38,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 18.45220010756053,
+          "sharpe_ratio": 1.4801102283562226,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 4.847619382023555,
+          "sharpe_ratio": 1.010778900446444,
+          "num_trades": 25,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 3.5127919356120003,
+          "sharpe_ratio": 0.9036074164176403,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 5.860538969430222,
+          "sharpe_ratio": 1.0825935729174945,
+          "num_trades": 51,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 13.790346774078108,
+          "sharpe_ratio": 1.3732369734317516,
+          "num_trades": 37,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 8.383523718927735,
+          "sharpe_ratio": 1.227289936900372,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.825268616955304,
+          "sharpe_ratio": 1.069403480500767,
+          "num_trades": 24,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 5.033048112298322,
+          "sharpe_ratio": 1.002218819987473,
+          "num_trades": 70,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.4155847910236496,
+          "sharpe_ratio": 0.7815416355797031,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.543320691328675,
+          "sharpe_ratio": 1.1237324992876712,
+          "num_trades": 35,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 8.232740456730461,
+          "sharpe_ratio": 1.2243262509543589,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.464367887094697,
+          "sharpe_ratio": 1.042990082020142,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 4.1546240311567395,
+          "sharpe_ratio": 0.9299929660653528,
+          "num_trades": 116,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.5243440596468654,
+          "sharpe_ratio": 0.7836417216126484,
+          "num_trades": 55,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 5.106772464240655,
+          "sharpe_ratio": 1.0712149639899786,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 5.9452706673691935,
+          "sharpe_ratio": 1.0928672562712698,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.04,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 4.7650141751980595,
+          "sharpe_ratio": 0.9921496529831726,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 8.248046680870079,
+          "sharpe_ratio": 1.1595057911354782,
+          "num_trades": 74,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 4.545847571748491,
+          "sharpe_ratio": 0.9329817297877461,
+          "num_trades": 64,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 9.703448362456735,
+          "sharpe_ratio": 1.2174648383745421,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 12.101295894174546,
+          "sharpe_ratio": 1.2905755625305881,
+          "num_trades": 39,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 8.102902182501484,
+          "sharpe_ratio": 1.1578164923097616,
+          "num_trades": 28,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 4.682610004576925,
+          "sharpe_ratio": 0.9687386739979077,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.3331869068394004,
+          "sharpe_ratio": 0.8400326471137123,
+          "num_trades": 58,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 7.352846580952624,
+          "sharpe_ratio": 1.1468386186155435,
+          "num_trades": 38,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 14.646134939815044,
+          "sharpe_ratio": 1.3758224388510136,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 12.163277596921052,
+          "sharpe_ratio": 1.2810172985601345,
+          "num_trades": 25,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.107965473942214,
+          "sharpe_ratio": 0.7135261352538599,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.9317043082748553,
+          "sharpe_ratio": 0.905784572525497,
+          "num_trades": 51,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 9.72889228076418,
+          "sharpe_ratio": 1.222308148266036,
+          "num_trades": 37,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 13.713638091544418,
+          "sharpe_ratio": 1.3608151066894574,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 9.186286754661817,
+          "sharpe_ratio": 1.1795508196632085,
+          "num_trades": 24,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 3.2319430532940707,
+          "sharpe_ratio": 0.8226353754926335,
+          "num_trades": 70,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 4.055002365677227,
+          "sharpe_ratio": 0.8981299138253559,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 5.894690879544946,
+          "sharpe_ratio": 1.050093214197816,
+          "num_trades": 35,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 8.828245826602462,
+          "sharpe_ratio": 1.204275392497474,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 8.41292044872825,
+          "sharpe_ratio": 1.1465401560386266,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 3.5304631218764753,
+          "sharpe_ratio": 0.8430101706335952,
+          "num_trades": 116,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 4.653256875471393,
+          "sharpe_ratio": 0.9558529316482995,
+          "num_trades": 55,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.486543833068571,
+          "sharpe_ratio": 1.0951820986645624,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 9.191714399659055,
+          "sharpe_ratio": 1.2008597978250268,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.06,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 7.364959472466069,
+          "sharpe_ratio": 1.1202036522978813,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 6.915364274165154,
+          "sharpe_ratio": 1.0755540186917398,
+          "num_trades": 74,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.413032817699343,
+          "sharpe_ratio": 0.8278472431850382,
+          "num_trades": 64,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 7.4949039913899025,
+          "sharpe_ratio": 1.1072194049726247,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 10.185524149407204,
+          "sharpe_ratio": 1.217402405766524,
+          "num_trades": 39,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 10.394979448296377,
+          "sharpe_ratio": 1.2155150380065816,
+          "num_trades": 28,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 4.576492716146452,
+          "sharpe_ratio": 0.9429937408434912,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.284523146825444,
+          "sharpe_ratio": 0.707849616613909,
+          "num_trades": 58,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 7.358249781837982,
+          "sharpe_ratio": 1.1080988572906085,
+          "num_trades": 38,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 12.719932123299598,
+          "sharpe_ratio": 1.312199937137733,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 9.846808038652446,
+          "sharpe_ratio": 1.1953366779498278,
+          "num_trades": 25,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.6115171909941646,
+          "sharpe_ratio": 0.7515629804731088,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.719976045900379,
+          "sharpe_ratio": 0.7593845667981984,
+          "num_trades": 51,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.846171552507297,
+          "sharpe_ratio": 1.077509877732248,
+          "num_trades": 37,
+          "is_baseline": true
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 11.763280470803657,
+          "sharpe_ratio": 1.293577168212316,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 8.110029474966908,
+          "sharpe_ratio": 1.1268939124311368,
+          "num_trades": 24,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.6102741364219315,
+          "sharpe_ratio": 0.7414937064031991,
+          "num_trades": 70,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.6484965097402897,
+          "sharpe_ratio": 0.8505033343166754,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 8.54037074830284,
+          "sharpe_ratio": 1.1636751409829633,
+          "num_trades": 35,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 11.056031898896238,
+          "sharpe_ratio": 1.2618411411186636,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.966364588017085,
+          "sharpe_ratio": 1.009679009495403,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.829218592125758,
+          "sharpe_ratio": 0.766763926652614,
+          "num_trades": 116,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.6829096085078783,
+          "sharpe_ratio": 0.8637093686289562,
+          "num_trades": 55,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.014371309287303,
+          "sharpe_ratio": 1.0267211386842554,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 7.596798075921409,
+          "sharpe_ratio": 1.124220548757446,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.08,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.5982973193183945,
+          "sharpe_ratio": 1.0102523220219057,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 6.729392163137277,
+          "sharpe_ratio": 1.0628052244059008,
+          "num_trades": 74,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.017999514095509,
+          "sharpe_ratio": 0.7871505651663827,
+          "num_trades": 64,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.874628245526322,
+          "sharpe_ratio": 1.0704004863557035,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 9.657879549364866,
+          "sharpe_ratio": 1.194317249009139,
+          "num_trades": 39,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 10.223193633470657,
+          "sharpe_ratio": 1.2065431354022562,
+          "num_trades": 28,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 4.75435547332836,
+          "sharpe_ratio": 0.9387193173699065,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.947060862913025,
+          "sharpe_ratio": 0.7811805593898565,
+          "num_trades": 58,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 7.252001272746606,
+          "sharpe_ratio": 1.0982869286306305,
+          "num_trades": 38,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 10.815188625505117,
+          "sharpe_ratio": 1.2427143130326013,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 9.520616169304319,
+          "sharpe_ratio": 1.1786822269930182,
+          "num_trades": 25,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.1774166351654007,
+          "sharpe_ratio": 0.6872827697561387,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.175655917499396,
+          "sharpe_ratio": 0.685501207405672,
+          "num_trades": 51,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.178117886840662,
+          "sharpe_ratio": 1.0365915204643934,
+          "num_trades": 37,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 10.869268834150917,
+          "sharpe_ratio": 1.2482822332825165,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 7.409318176109279,
+          "sharpe_ratio": 1.090898731282666,
+          "num_trades": 24,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.5642694330042026,
+          "sharpe_ratio": 0.7326858043965568,
+          "num_trades": 70,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.73478176516311,
+          "sharpe_ratio": 0.7529630046433108,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.4976954025789455,
+          "sharpe_ratio": 1.0552375403726357,
+          "num_trades": 35,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 10.298061851436328,
+          "sharpe_ratio": 1.2271420569594615,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.208777496761718,
+          "sharpe_ratio": 0.9600218684285421,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.2302779059581157,
+          "sharpe_ratio": 0.6891823162952028,
+          "num_trades": 116,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.424625060433121,
+          "sharpe_ratio": 0.7246677568231654,
+          "num_trades": 55,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 5.984305421848263,
+          "sharpe_ratio": 1.0220008079089928,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 7.249112850907565,
+          "sharpe_ratio": 1.0931755989329053,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.1,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 6.652313034659215,
+          "sharpe_ratio": 1.0524303099977406,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 6.570936737679178,
+          "sharpe_ratio": 1.05296172415399,
+          "num_trades": 74,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 3.110265410816039,
+          "sharpe_ratio": 0.7937588329107809,
+          "num_trades": 64,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 6.3615830896520436,
+          "sharpe_ratio": 1.0401196102292443,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 8.75441405064227,
+          "sharpe_ratio": 1.1471719960364093,
+          "num_trades": 39,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 25.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 9.688732114209866,
+          "sharpe_ratio": 1.1849354013713398,
+          "num_trades": 28,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 3.7497681658933937,
+          "sharpe_ratio": 0.854730418488749,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.6728416841309737,
+          "sharpe_ratio": 0.7474780596116795,
+          "num_trades": 58,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 5.225204293517346,
+          "sharpe_ratio": 0.971569869222297,
+          "num_trades": 38,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 9.492818000067247,
+          "sharpe_ratio": 1.1904189059031736,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 38.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 7.9369880263053165,
+          "sharpe_ratio": 1.105685076362369,
+          "num_trades": 25,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.1867423421880816,
+          "sharpe_ratio": 0.6861163628737706,
+          "num_trades": 68,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 2.152060956051041,
+          "sharpe_ratio": 0.6797767832579393,
+          "num_trades": 51,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 5.2431446345988535,
+          "sharpe_ratio": 0.9718705121822553,
+          "num_trades": 37,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 9.527809514880264,
+          "sharpe_ratio": 1.1877727052482716,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 50.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 6.960302950560025,
+          "sharpe_ratio": 1.0611636542905194,
+          "num_trades": 24,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 2.1877474633688343,
+          "sharpe_ratio": 0.6831038406242937,
+          "num_trades": 70,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 1.928140285332471,
+          "sharpe_ratio": 0.648372249584077,
+          "num_trades": 50,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 5.009531652938432,
+          "sharpe_ratio": 0.9540251425247434,
+          "num_trades": 35,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 8.861831292787931,
+          "sharpe_ratio": 1.1550770665769277,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 62.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 4.316410320253785,
+          "sharpe_ratio": 0.8916941608522208,
+          "num_trades": 26,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 100.0
+          },
+          "total_return_pct": 1.393615966791835,
+          "sharpe_ratio": 0.5634865907908814,
+          "num_trades": 116,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 150.0
+          },
+          "total_return_pct": 1.2824941174109692,
+          "sharpe_ratio": 0.5474693842308784,
+          "num_trades": 55,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 200.0
+          },
+          "total_return_pct": 4.432129427849358,
+          "sharpe_ratio": 0.9117201030626005,
+          "num_trades": 32,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 250.0
+          },
+          "total_return_pct": 5.984482417080186,
+          "sharpe_ratio": 1.0162038590488878,
+          "num_trades": 23,
+          "is_baseline": false
+        },
+        {
+          "axis_values": {
+            "Stop-loss %": 0.14,
+            "Indicator period (50)": 88.0,
+            "Indicator period (200)": 350.0
+          },
+          "total_return_pct": 5.6849829149271915,
+          "sharpe_ratio": 0.9912628230497375,
+          "num_trades": 23,
+          "is_baseline": false
+        }
+      ],
+      "baseline_return_pct": 6.846171552507297,
+      "baseline_rank_percentile": 0.592,
+      "best_in_grid_return": 18.45220010756053,
+      "worst_in_grid_return": 1.2824941174109692,
+      "neighborhood_avg_return": 7.714814535741617,
+      "peakiness_score": 0.0,
+      "n_combinations": 125,
+      "skipped_reason": null
+    },
+    "monte_carlo": {
+      "real_return_pct": 6.846171552507297,
+      "real_sharpe": 1.077509877732248,
+      "n_permutations": 100,
+      "synthetic_mean_return": 2.189660411977455,
+      "synthetic_std_return": 2.7732186333890945,
+      "synthetic_min": -0.44532323184404454,
+      "synthetic_max": 17.278432714214635,
+      "histogram": [
+        {
+          "lo": -0.44532323184404454,
+          "hi": 0.2931665992417338,
+          "count": 17
+        },
+        {
+          "lo": 0.2931665992417338,
+          "hi": 1.0316564303275122,
+          "count": 24
+        },
+        {
+          "lo": 1.0316564303275122,
+          "hi": 1.7701462614132906,
+          "count": 17
+        },
+        {
+          "lo": 1.7701462614132906,
+          "hi": 2.508636092499069,
+          "count": 10
+        },
+        {
+          "lo": 2.508636092499069,
+          "hi": 3.2471259235848473,
+          "count": 10
+        },
+        {
+          "lo": 3.2471259235848473,
+          "hi": 3.9856157546706257,
+          "count": 5
+        },
+        {
+          "lo": 3.9856157546706257,
+          "hi": 4.724105585756404,
+          "count": 5
+        },
+        {
+          "lo": 4.724105585756404,
+          "hi": 5.462595416842182,
+          "count": 4
+        },
+        {
+          "lo": 5.462595416842182,
+          "hi": 6.201085247927961,
+          "count": 2
+        },
+        {
+          "lo": 6.201085247927961,
+          "hi": 6.939575079013739,
+          "count": 1
+        },
+        {
+          "lo": 6.939575079013739,
+          "hi": 7.678064910099517,
+          "count": 1
+        },
+        {
+          "lo": 7.678064910099517,
+          "hi": 8.416554741185296,
+          "count": 0
+        },
+        {
+          "lo": 8.416554741185296,
+          "hi": 9.155044572271075,
+          "count": 0
+        },
+        {
+          "lo": 9.155044572271075,
+          "hi": 9.893534403356853,
+          "count": 0
+        },
+        {
+          "lo": 9.893534403356853,
+          "hi": 10.63202423444263,
+          "count": 1
+        },
+        {
+          "lo": 10.63202423444263,
+          "hi": 11.37051406552841,
+          "count": 1
+        },
+        {
+          "lo": 11.37051406552841,
+          "hi": 12.109003896614189,
+          "count": 1
+        },
+        {
+          "lo": 12.109003896614189,
+          "hi": 12.847493727699966,
+          "count": 0
+        },
+        {
+          "lo": 12.847493727699966,
+          "hi": 13.585983558785744,
+          "count": 0
+        },
+        {
+          "lo": 13.585983558785744,
+          "hi": 14.324473389871523,
+          "count": 0
+        },
+        {
+          "lo": 14.324473389871523,
+          "hi": 15.062963220957302,
+          "count": 0
+        },
+        {
+          "lo": 15.062963220957302,
+          "hi": 15.801453052043078,
+          "count": 0
+        },
+        {
+          "lo": 15.801453052043078,
+          "hi": 16.53994288312886,
+          "count": 0
+        },
+        {
+          "lo": 16.53994288312886,
+          "hi": 17.278432714214635,
+          "count": 1
+        }
+      ],
+      "p_value": 0.06,
+      "percentile_rank": 0.94,
+      "seed": 42
+    },
+    "deflated_sharpe": {
+      "observed_sharpe": 1.077509877732248,
+      "deflated_sharpe_ratio": -1.4530930154694366,
+      "probability_strategy_is_real": 0.0,
+      "n_trials_estimate": 100,
+      "n_observations": 12960,
+      "returns_skewness": 0.0,
+      "returns_kurtosis": 3.0,
+      "expected_max_sharpe": 2.5306028932016846,
+      "method": "lopez_de_prado_full"
+    },
+    "composite": {
+      "score": 47.193592935176774,
+      "verdict": "mixed_signals",
+      "contributions": [
+        {
+          "name": "walk_forward",
+          "label": "Walk-forward degradation",
+          "raw_value": 0.09331479034451604,
+          "weight": 0.35,
+          "contribution_pts": 76.26740838621936
+        },
+        {
+          "name": "parameter_sweep",
+          "label": "Parameter peakiness",
+          "raw_value": 0.0,
+          "weight": 0.25,
+          "contribution_pts": 0.0
+        },
+        {
+          "name": "monte_carlo",
+          "label": "Monte Carlo p-value",
+          "raw_value": 0.06,
+          "weight": 0.25,
+          "contribution_pts": 22.0
+        },
+        {
+          "name": "deflated_sharpe",
+          "label": "Deflated Sharpe probability",
+          "raw_value": 0.0,
+          "weight": 0.15,
+          "contribution_pts": 100.0
+        }
+      ],
+      "explanation": "Mixed signals (score 47/100). Some checks support the strategy and others raise concerns \u2014 treat the headline return with caution. Deflated Sharpe: probability the edge is real = 0.00. Walk-forward: out-of-sample returns degraded to 0.09\u00d7 in-sample (degradation ratio).",
+      "confidence_band_low": 37.193592935176774,
+      "confidence_band_high": 57.193592935176774
+    },
+    "compute_seconds": 30.40241380599764
+  }
+}

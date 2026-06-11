@@ -1,0 +1,75 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Datetime-Format:
+      - RFC3339
+      Authorization:
+      - Bearer DUMMY_API_TOKEN_FOR_CASSETTE
+    method: GET
+    uri: https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles?granularity=H1&from=2024-01-01T00%3A00%3A00%2B00%3A00&count=3&price=M
+  response:
+    body:
+      string: |
+        {"instrument":"EUR_USD","granularity":"H1","candles":[
+          {"complete":true,"volume":1234,"time":"2024-01-01T00:00:00.000000000Z","mid":{"o":"1.10410","h":"1.10520","l":"1.10380","c":"1.10500"}},
+          {"complete":true,"volume":1567,"time":"2024-01-01T01:00:00.000000000Z","mid":{"o":"1.10500","h":"1.10610","l":"1.10470","c":"1.10590"}},
+          {"complete":true,"volume":1890,"time":"2024-01-01T02:00:00.000000000Z","mid":{"o":"1.10590","h":"1.10700","l":"1.10550","c":"1.10650"}}
+        ]}
+    headers:
+      Content-Type:
+      - application/json
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Datetime-Format:
+      - RFC3339
+      Authorization:
+      - Bearer DUMMY_API_TOKEN_FOR_CASSETTE
+    method: GET
+    uri: https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles?granularity=H1&from=2024-01-01T03%3A00%3A00%2B00%3A00&count=3&price=M
+  response:
+    body:
+      string: |
+        {"instrument":"EUR_USD","granularity":"H1","candles":[
+          {"complete":true,"volume":2103,"time":"2024-01-01T03:00:00.000000000Z","mid":{"o":"1.10650","h":"1.10720","l":"1.10620","c":"1.10680"}},
+          {"complete":true,"volume":1980,"time":"2024-01-01T04:00:00.000000000Z","mid":{"o":"1.10680","h":"1.10750","l":"1.10660","c":"1.10710"}},
+          {"complete":true,"volume":1720,"time":"2024-01-01T05:00:00.000000000Z","mid":{"o":"1.10710","h":"1.10770","l":"1.10690","c":"1.10740"}}
+        ]}
+    headers:
+      Content-Type:
+      - application/json
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Datetime-Format:
+      - RFC3339
+      Authorization:
+      - Bearer DUMMY_API_TOKEN_FOR_CASSETTE
+    method: GET
+    uri: https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles?granularity=H1&from=2024-01-01T06%3A00%3A00%2B00%3A00&count=3&price=M
+  response:
+    body:
+      string: |
+        {"instrument":"EUR_USD","granularity":"H1","candles":[
+          {"complete":true,"volume":1543,"time":"2024-01-01T06:00:00.000000000Z","mid":{"o":"1.10740","h":"1.10800","l":"1.10720","c":"1.10780"}}
+        ]}
+    headers:
+      Content-Type:
+      - application/json
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,129 @@
+{
+  "slug": "hunt_24_btc_1h_rsi_meanrev",
+  "verdict": "fully_extractable",
+  "overall_confidence": 0.98,
+  "summary": "A long-only BTC/USDT 1-hour RSI(14) < 30 oversold mean-reversion strategy gated by a 4-hour close > EMA(50) trend filter, exiting via a 1:2 ATR(14)-anchored R-multiple bracket with 1% equity sizing. All rules are precisely stated with explicit parameters.",
+  "refusal_explanation": null,
+  "usage": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 1003,
+    "output_tokens": 1938,
+    "cached_tokens": 38440,
+    "cache_write_tokens": 0,
+    "estimated_usd": 0.043611
+  },
+  "spec": {
+    "schema_version": "1.0",
+    "name": "BTC/USDT 1H RSI Oversold Mean-Reversion with 4H Trend Filter",
+    "description": "Long-only RSI(14) < 30 oversold mean-reversion on 1-hour BTC/USDT, gated by a 4H close > EMA(50) trend filter. Exits via a 1:2 R-multiple bracket anchored to ATR(14). 1% equity per trade.",
+    "instrument": {
+      "symbol": "BTC/USDT",
+      "exchange": "Binance",
+      "quote_currency": "USDT",
+      "asset_class": "crypto_spot",
+      "contract_specs": null,
+      "session_hours": null
+    },
+    "primary_timeframe": "1h",
+    "filter_timeframe": "4h",
+    "direction": "long",
+    "entry": {
+      "condition": {
+        "type": "and",
+        "conditions": [
+          {
+            "type": "rsi",
+            "period": 14,
+            "threshold": 30.0,
+            "comparison": "below",
+            "source": "close",
+            "timeframe": null
+          },
+          {
+            "type": "compare",
+            "left": {
+              "kind": "price",
+              "field": "close"
+            },
+            "op": ">",
+            "right": {
+              "kind": "indicator",
+              "name": "ema",
+              "params": {
+                "period": 50,
+                "fast": null,
+                "slow": null,
+                "signal": null,
+                "k": null,
+                "d": null,
+                "smooth": null,
+                "std_dev": null,
+                "session_anchored": null,
+                "source": null,
+                "atr_period": null,
+                "multiplier": null,
+                "step": null,
+                "max_step": null
+              },
+              "source": "close",
+              "component": null
+            },
+            "timeframe": "4h"
+          }
+        ]
+      },
+      "order_type": "market",
+      "limit_offset_pct": null
+    },
+    "exit": {
+      "exits": [
+        {
+          "type": "r_multiple",
+          "atr_period": 14,
+          "atr_multiple": 1.0,
+          "stop_R": 1.0,
+          "target_R": 2.0
+        }
+      ]
+    },
+    "position_sizing": {
+      "mode": "fixed_percent_equity",
+      "percent": 0.01
+    },
+    "costs": {
+      "commission_pct": 0.001,
+      "slippage_pct": 0.0005
+    },
+    "filters": [],
+    "metadata": {
+      "source_url": "hunt_24_btc_1h_rsi_meanrev",
+      "source_type": "manual",
+      "extracted_by": "",
+      "extracted_at": null,
+      "confidence": 0.98,
+      "extraction_notes": [
+        {
+          "severity": "info",
+          "field": "entry.condition[1].timeframe",
+          "message": "4H trend filter (close > EMA(50) on 4-hour bars) is a higher-timeframe condition. The schema supports the timeframe field on CompareCondition to denote this cross-timeframe gate.",
+          "confidence": 0.97
+        },
+        {
+          "severity": "info",
+          "field": "exit",
+          "message": "Exit uses a single r_multiple bracket: R = 1.0 \u00d7 ATR(14); stop at 1R below entry, target at 2R above entry (1:2 risk-reward). Both legs governed by the same ATR anchor at entry bar.",
+          "confidence": 1.0
+        },
+        {
+          "severity": "info",
+          "field": "position_sizing",
+          "message": "Source explicitly states '1% of equity per trade, fixed percent'. Extracted as fixed_percent_equity with percent=0.01.",
+          "confidence": 1.0
+        }
+      ]
+    }
+  },
+  "fixes": [
+    "set filter_timeframe=4h (loader needs it to fetch the 4H trend-filter data; extractor declared 4h only per-condition)"
+  ]
+}

@@ -1,0 +1,29 @@
+-- Phase E.3 (2026-06-06) — multi-leg / perpetual-swap schema additions.
+--
+-- UNAPPLIED MARKER MIGRATION — DO NOT RUN AS A SCHEMA CHANGE.
+--
+-- Purely additive, JSON-serialised StrategySpec extensions — NO table /
+-- column / DDL change. Strategy specs live in JSONB columns
+-- (extracted_strategies.spec_json, trader_strategy_versions.marketmind_spec_*),
+-- so these new OPTIONAL fields serialise into the existing columns with no
+-- migration of stored rows. Every pre-E.3 (single-leg, spot) spec is
+-- byte-identical: the new fields default to None / absent.
+--
+-- What E.3 adds to the schema (shared/.../strategy_spec/):
+--   * AssetClass gains "crypto_perp"  (common.py) — additive Literal value.
+--   * CostModel gains optional `funding_model: str | None = None` (costs.py)
+--     — DECLARATIVE only; real funding accrues from the 8h funding FIXTURE on
+--     MARK price in the perp engine, not from this field.
+--   * StrategySpec gains optional `legs: list[SpreadLeg] | None = None` and
+--     `spread: SpreadConfig | None = None` (spec.py + legs.py) — present only
+--     on a multi-leg market-neutral spec; None on every single-leg spec.
+--
+-- A multi-leg spec (legs + spread set) is simulated by the dedicated
+-- perp-pair engine (workers/.../backtest/perp_pairs.py), NOT the single-leg
+-- vbt/iterative path — so the live trader's spot-long-only path is untouched.
+--
+-- BACKTEST/RESEARCH-ONLY this phase. There is no live perp / multi-leg
+-- execution; the live trader stays spot-long-only and is taught none of this.
+-- Reserves migration number 0019.
+
+SELECT 1;  -- no-op: JSON-serialised additive schema fields, no DDL

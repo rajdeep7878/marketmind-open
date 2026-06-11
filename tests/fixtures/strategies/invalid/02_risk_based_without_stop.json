@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "name": "Invalid: risk_based Without Stop",
+  "description": "Otherwise-valid long with risk_based sizing but no stop_loss exit.",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "1h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "compare",
+      "left": { "kind": "price", "field": "close" },
+      "op": ">",
+      "right": { "kind": "indicator", "name": "sma", "params": { "period": 20 } }
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "take_profit", "method": { "kind": "percent", "value": 0.05 } }
+    ]
+  },
+  "position_sizing": { "mode": "risk_based", "risk_percent": 0.01 }
+}

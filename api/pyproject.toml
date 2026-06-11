@@ -1,0 +1,23 @@
+[project]
+name = "marketmind-api"
+version = "0.0.1"
+description = "MarketMind AI HTTP API (FastAPI)."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115.0,<0.116",
+    "uvicorn[standard]>=0.32.0,<0.33",
+    "pydantic>=2.10.0,<3.0.0",
+    "pydantic-settings>=2.6.0,<3.0.0",
+    "redis>=5.2.0,<6.0.0",
+    "rq>=2.0.0,<3.0.0",
+    "psycopg[binary]>=3.2.0,<4.0.0",
+    "structlog>=24.4.0,<25.0.0",
+    "marketmind-shared",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/marketmind_api"]

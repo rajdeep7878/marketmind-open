@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "name": "Stateful Element In A V1 Spec",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "4h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "regime_state",
+      "enter_when": {
+        "type": "crossover",
+        "series": { "kind": "price", "field": "close" },
+        "threshold": { "kind": "indicator", "name": "ema", "params": { "period": 200 } },
+        "direction": "above"
+      },
+      "exit_when": {
+        "type": "crossover",
+        "series": { "kind": "price", "field": "close" },
+        "threshold": { "kind": "indicator", "name": "ema", "params": { "period": 200 } },
+        "direction": "below"
+      },
+      "initial": false
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "percent", "value": 0.05 } }
+    ]
+  }
+}

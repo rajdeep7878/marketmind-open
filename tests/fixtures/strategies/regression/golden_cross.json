@@ -1,0 +1,155 @@
+{
+  "exit": {
+    "exits": [
+      {
+        "type": "stop_loss",
+        "method": {
+          "kind": "percent",
+          "value": 0.08
+        }
+      },
+      {
+        "type": "condition",
+        "condition": {
+          "type": "crossover",
+          "series": {
+            "kind": "indicator",
+            "name": "sma",
+            "params": {
+              "d": null,
+              "k": null,
+              "fast": null,
+              "slow": null,
+              "period": 50,
+              "signal": null,
+              "smooth": null,
+              "source": null,
+              "std_dev": null,
+              "session_anchored": null
+            },
+            "source": "close",
+            "component": null
+          },
+          "direction": "below",
+          "threshold": {
+            "kind": "indicator",
+            "name": "sma",
+            "params": {
+              "d": null,
+              "k": null,
+              "fast": null,
+              "slow": null,
+              "period": 200,
+              "signal": null,
+              "smooth": null,
+              "source": null,
+              "std_dev": null,
+              "session_anchored": null
+            },
+            "source": "close",
+            "component": null
+          },
+          "timeframe": null
+        }
+      }
+    ]
+  },
+  "name": "Golden Cross 50/200 SMA \u2013 4H Crypto",
+  "costs": {
+    "slippage_pct": 0.0005,
+    "commission_pct": 0.001
+  },
+  "entry": {
+    "condition": {
+      "type": "crossover",
+      "series": {
+        "kind": "indicator",
+        "name": "sma",
+        "params": {
+          "d": null,
+          "k": null,
+          "fast": null,
+          "slow": null,
+          "period": 50,
+          "signal": null,
+          "smooth": null,
+          "source": null,
+          "std_dev": null,
+          "session_anchored": null
+        },
+        "source": "close",
+        "component": null
+      },
+      "direction": "above",
+      "threshold": {
+        "kind": "indicator",
+        "name": "sma",
+        "params": {
+          "d": null,
+          "k": null,
+          "fast": null,
+          "slow": null,
+          "period": 200,
+          "signal": null,
+          "smooth": null,
+          "source": null,
+          "std_dev": null,
+          "session_anchored": null
+        },
+        "source": "close",
+        "component": null
+      },
+      "timeframe": null
+    },
+    "order_type": "market",
+    "limit_offset_pct": null
+  },
+  "filters": [],
+  "metadata": {
+    "confidence": 0.82,
+    "source_url": "https://www.youtube.com/watch?v=5s8R_BBwgEk",
+    "source_type": "youtube",
+    "extracted_at": null,
+    "extracted_by": "",
+    "extraction_notes": [
+      {
+        "field": "exit.stop_loss",
+        "message": "The 8% stop loss was chosen by optimizing over a 5%-20% range on the same backtest dataset. This is an in-sample optimized parameter and may be overfit. Quote: 'I tested a range between 5% to 20% and the best performing result landed at 8%.'",
+        "severity": "warning",
+        "confidence": 0.95
+      },
+      {
+        "field": "primary_timeframe",
+        "message": "The author tested 1h, 2h, 4h, 6h, 8h, and 12h timeframes and identified 4h as the best-performing variant. Other timeframes are available in the source.",
+        "severity": "info",
+        "confidence": 0.98
+      },
+      {
+        "field": "instrument",
+        "message": "Strategy was tested simultaneously on BTC, ETH, SOL, and BNB (Binance Spot) with up to 8 open trades. The spec targets BTC/USDT as the representative instrument; results cited are aggregate across all four pairs.",
+        "severity": "info",
+        "confidence": 0.95
+      },
+      {
+        "field": "position_sizing",
+        "message": "Position sizing was not explicitly stated. The backtest used up to 8 open trades simultaneously but no per-trade allocation percentage was given. Defaulting to fixed_percent_equity 100% (single instrument backtest basis).",
+        "severity": "warning",
+        "confidence": 0.4
+      }
+    ]
+  },
+  "direction": "long",
+  "instrument": {
+    "symbol": "BTC/USDT",
+    "exchange": "Binance",
+    "quote_currency": "USDT"
+  },
+  "description": "Classic Golden Cross strategy using 50-period SMA crossing above 200-period SMA for entry, and Death Cross (50 crossing below 200) for exit, with an 8% fixed stop loss. Tested on large-cap crypto pairs on Binance Spot at the 4-hour timeframe.",
+  "schema_version": "1.0",
+  "position_sizing": {
+    "mode": "fixed_percent_equity",
+    "percent": 1.0
+  },
+  "filter_timeframe": null,
+  "primary_timeframe": "4h"
+}

@@ -1,0 +1,22 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Datetime-Format:
+      - RFC3339
+      Authorization:
+      - Bearer DUMMY_API_TOKEN_FOR_CASSETTE
+    method: GET
+    uri: https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles?granularity=H1&count=5&price=M
+  response:
+    body:
+      string: '{"errorMessage":"Invalid value for ''Authorization'' header"}'
+    headers:
+      Content-Type:
+      - application/json
+    status:
+      code: 401
+      message: Unauthorized
+version: 1

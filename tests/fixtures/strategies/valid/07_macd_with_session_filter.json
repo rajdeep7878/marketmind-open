@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "name": "MACD Histogram Cross with Session Filter",
+  "description": "Long ETH 1h limit-buy slightly below close when MACD histogram crosses above zero; weekdays during US/EU overlap only.",
+  "instrument": { "symbol": "ETH/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "1h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "crossover",
+      "series": {
+        "kind": "indicator",
+        "name": "macd",
+        "params": { "fast": 12, "slow": 26, "signal": 9 },
+        "component": "hist"
+      },
+      "threshold": { "kind": "constant", "value": 0 },
+      "direction": "above"
+    },
+    "order_type": "limit",
+    "limit_offset_pct": -0.001
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "percent", "value": 0.03 } },
+      { "type": "take_profit", "method": { "kind": "percent", "value": 0.06 } }
+    ]
+  },
+  "position_sizing": { "mode": "fixed_percent_equity", "percent": 0.05 },
+  "filters": [
+    { "type": "session", "hours_utc": [13, 21] },
+    { "type": "weekday", "days": [1, 2, 3, 4, 5] }
+  ]
+}

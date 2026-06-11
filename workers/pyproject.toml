@@ -1,0 +1,51 @@
+[project]
+name = "marketmind-workers"
+version = "0.0.1"
+description = "MarketMind AI background job workers (RQ)."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "rq>=2.0.0,<3.0.0",
+    "redis>=5.2.0,<6.0.0",
+    "pydantic>=2.10.0,<3.0.0",
+    "pydantic-settings>=2.6.0,<3.0.0",
+    "structlog>=24.4.0,<25.0.0",
+    "psycopg[binary]>=3.2.0,<4.0.0",
+    "yt-dlp>=2025.1.15",
+    "faster-whisper>=1.1.0,<2.0.0",
+    "trafilatura>=2.0.0,<3.0.0",
+    "anthropic>=0.42.0,<1.0.0",
+    # Phase 3.1 — historical data + backtest execution.
+    "ccxt>=4.4.0,<5.0.0",
+    "pandas>=2.2.0,<3.0.0",
+    "pyarrow>=18.0.0,<22.0.0",
+    "ta>=0.11.0,<1.0.0",
+    "vectorbt>=0.26.0,<1.0.0",
+    # Step 10 — trader alert dispatcher posts to Telegram via HTTP.
+    "httpx>=0.28.0,<1.0.0",
+    # Phase D FTR — deterministic ML strategies + L1/L2 recorder.
+    "xgboost>=2.1.0,<4.0.0",
+    "scikit-learn>=1.5.0,<2.0.0",
+    "websockets>=13.0,<16.0",
+    "marketmind-shared",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/marketmind_workers"]
+
+# Copy the canonical SQL migrations into the wheel as package data, so
+# the runtime migration runner can find them via importlib.resources
+# even when the package is installed --no-editable (i.e. inside the
+# Docker image). The source of truth stays at infra/db/migrations/ at
+# the repo root — that's what docker-compose mounts into Postgres'
+# init dir on a fresh DB. See workers/db/migrations.py for the lookup.
+[tool.hatch.build.targets.wheel.force-include]
+"../infra/db/migrations" = "marketmind_workers/_migrations"
+# Phase 2.2: the extraction service builds its tool input_schema by
+# loading the StrategySpec JSON Schema from this bundle. Same lookup
+# pattern as the migrations: try importlib.resources first (works in
+# wheel installs), fall back to repo-relative for editable installs.
+"../web/src/types/generated/schemas.json" = "marketmind_workers/_schemas.json"

@@ -1,0 +1,5 @@
+{
+  "error_code": "r_multiple_requires_stop_loss",
+  "field_path": "",
+  "message_contains": "r_multiple take_profit requires a stop_loss exit"
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.0",
+  "name": "Nested Ratchet",
+  "instrument": { "symbol": "BTC/USDT", "exchange": "binance", "quote_currency": "USDT" },
+  "primary_timeframe": "4h",
+  "direction": "long",
+  "entry": {
+    "condition": {
+      "type": "compare",
+      "left": { "kind": "price", "field": "close" },
+      "op": ">",
+      "right": {
+        "kind": "ratchet",
+        "source": {
+          "kind": "ratchet",
+          "source": { "kind": "price", "field": "close" },
+          "extremum": "max",
+          "reset": "never"
+        },
+        "extremum": "max",
+        "reset": "never"
+      }
+    },
+    "order_type": "market"
+  },
+  "exit": {
+    "exits": [
+      { "type": "stop_loss", "method": { "kind": "percent", "value": 0.05 } }
+    ]
+  }
+}

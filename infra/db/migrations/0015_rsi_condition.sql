@@ -1,0 +1,21 @@
+-- v1.3: RSICondition — Wilder's RSI oscillator mean-reversion gate.
+--
+-- Forward-only marker migration. RSICondition is a new variant of the
+-- Condition discriminated union (discriminator type="rsi"): a stateless
+-- boolean that evaluates Wilder's RSI(period) on a price source and
+-- compares it to a fixed threshold via below / above / crosses_above /
+-- crosses_below. It closes the oscillator mean-reversion gap where the
+-- LLM previously had to hand-build a compare against an
+-- indicator(name="rsi") expression.
+--
+-- NO SCHEMA CHANGE REQUIRED. StrategySpec — including every Condition
+-- variant — is persisted as JSON in the existing `spec_json` column
+-- (extracted_strategies) and in `trader_strategy_versions.parameters`.
+-- A new union variant adds no column, table, constraint, or index: an
+-- RSICondition simply appears as a {"type": "rsi", ...} object inside
+-- the already-stored JSON. This file exists purely as a numbered,
+-- forward-only record that the primitive shipped, keeping the migration
+-- ledger aligned with the schema-evolution history.
+--
+-- UNAPPLIED at authoring time and intentionally a no-op.
+SELECT 1;

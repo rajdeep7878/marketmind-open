@@ -1,0 +1,22 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Datetime-Format:
+      - RFC3339
+      Authorization:
+      - Bearer DUMMY_API_TOKEN_FOR_CASSETTE
+    method: GET
+    uri: https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles?granularity=H1&count=5&price=M
+  response:
+    body:
+      string: '<html><body>500 Internal Server Error — gateway dropped the response</body></html>'
+    headers:
+      Content-Type:
+      - text/html
+    status:
+      code: 200
+      message: OK
+version: 1

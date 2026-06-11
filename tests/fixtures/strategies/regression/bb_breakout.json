@@ -1,0 +1,193 @@
+{
+  "exit": {
+    "exits": [
+      {
+        "type": "condition",
+        "condition": {
+          "type": "crossover",
+          "series": {
+            "kind": "price",
+            "field": "close"
+          },
+          "direction": "below",
+          "threshold": {
+            "kind": "indicator",
+            "name": "bollinger",
+            "params": {
+              "d": null,
+              "k": null,
+              "fast": null,
+              "slow": null,
+              "period": 20,
+              "signal": null,
+              "smooth": null,
+              "source": null,
+              "std_dev": 1.0,
+              "session_anchored": null
+            },
+            "source": "close",
+            "component": "middle"
+          },
+          "timeframe": null
+        }
+      },
+      {
+        "type": "stop_loss",
+        "method": {
+          "kind": "atr_multiple",
+          "mult": 2.0,
+          "atr_period": 14
+        }
+      }
+    ]
+  },
+  "name": "Bollinger Band Breakout with EMA200 & Volume Confirmation (8H)",
+  "costs": {
+    "slippage_pct": 0.0005,
+    "commission_pct": 0.001
+  },
+  "entry": {
+    "condition": {
+      "type": "and",
+      "conditions": [
+        {
+          "op": ">",
+          "left": {
+            "kind": "price",
+            "field": "close"
+          },
+          "type": "compare",
+          "right": {
+            "kind": "indicator",
+            "name": "bollinger",
+            "params": {
+              "d": null,
+              "k": null,
+              "fast": null,
+              "slow": null,
+              "period": 20,
+              "signal": null,
+              "smooth": null,
+              "source": null,
+              "std_dev": 1.0,
+              "session_anchored": null
+            },
+            "source": "close",
+            "component": "upper"
+          },
+          "timeframe": null
+        },
+        {
+          "op": ">",
+          "left": {
+            "kind": "price",
+            "field": "close"
+          },
+          "type": "compare",
+          "right": {
+            "kind": "indicator",
+            "name": "ema",
+            "params": {
+              "d": null,
+              "k": null,
+              "fast": null,
+              "slow": null,
+              "period": 200,
+              "signal": null,
+              "smooth": null,
+              "source": null,
+              "std_dev": null,
+              "session_anchored": null
+            },
+            "source": "close",
+            "component": null
+          },
+          "timeframe": null
+        },
+        {
+          "op": ">",
+          "left": {
+            "kind": "price",
+            "field": "volume"
+          },
+          "type": "compare",
+          "right": {
+            "kind": "indicator",
+            "name": "volume_sma",
+            "params": {
+              "d": null,
+              "k": null,
+              "fast": null,
+              "slow": null,
+              "period": 20,
+              "signal": null,
+              "smooth": null,
+              "source": null,
+              "std_dev": null,
+              "session_anchored": null
+            },
+            "source": "close",
+            "component": null
+          },
+          "timeframe": null
+        }
+      ]
+    },
+    "order_type": "market",
+    "limit_offset_pct": null
+  },
+  "filters": [],
+  "metadata": {
+    "confidence": 0.72,
+    "source_url": "https://www.youtube.com/watch?v=1IC6iNOePS8",
+    "source_type": "youtube",
+    "extracted_at": null,
+    "extracted_by": "",
+    "extraction_notes": [
+      {
+        "field": "primary_timeframe",
+        "message": "The strategy was tested on 1h, 2h, 4h, 6h, 8h, and 12h timeframes. The author recommends the 8-hour chart as the best performer (5,277% profit, 12.4% max drawdown). The schema does not support an 8h timeframe; the closest supported value is 4h. This is a critical mismatch \u2014 backtesting on 4h will produce different results than the claimed 8h optimum.",
+        "severity": "warning",
+        "confidence": 0.99
+      },
+      {
+        "field": "entry.bollinger.std_dev",
+        "message": "The author states bands are '1 standard deviation above and below'. Classic Bollinger Bands default is 2 std dev. The author explicitly says 1 std dev, which is an unusual and likely optimized parameter. This may be overfit.",
+        "severity": "warning",
+        "confidence": 0.9
+      },
+      {
+        "field": "exit.stop_loss.atr_period",
+        "message": "The ATR period is not explicitly stated. Using the conventional default of 14. Actual parameter used in backtesting may differ.",
+        "severity": "warning",
+        "confidence": 0.5
+      },
+      {
+        "field": "overall",
+        "message": "All performance figures (5,277% profit, 12.4% max drawdown, 98.5% CAGR, Sharpe 1.04) are backtest results on a specific 8-hour timeframe tested on Binance spot across 8 large-cap crypto pairs from May 2020 to March 2026. Parameters appear to have been selected by optimization across timeframes, raising overfitting risk. The author explicitly warns about this.",
+        "severity": "warning",
+        "confidence": 0.99
+      },
+      {
+        "field": "instrument",
+        "message": "The source tested 8 unnamed large-cap crypto pairs on Binance spot. BTC/USDT is used as a representative instrument; actual backtest covers a basket of 8 assets with max 8 simultaneous open trades.",
+        "severity": "info",
+        "confidence": 0.8
+      }
+    ]
+  },
+  "direction": "long",
+  "instrument": {
+    "symbol": "BTC/USDT",
+    "exchange": "binance",
+    "quote_currency": "USDT"
+  },
+  "description": "Long-only Bollinger Band breakout strategy on crypto spot. Entry when price closes above the upper Bollinger Band (20-period, 1 std dev), price is above EMA 200, and volume is above its 20-period average. Exit when price crosses back below the middle Bollinger Band. Stop loss at 2x ATR. Best performing variant is the 8-hour timeframe.",
+  "schema_version": "1.0",
+  "position_sizing": {
+    "mode": "fixed_percent_equity",
+    "percent": 1.0
+  },
+  "filter_timeframe": null,
+  "primary_timeframe": "4h"
+}

@@ -1,0 +1,44 @@
+# Run `pre-commit install` once per checkout to enable.
+# Pyright is intentionally NOT here — too slow for every commit; CI runs it.
+
+default_install_hook_types: [pre-commit]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+        exclude: ^(.*tsconfig\.json|.*\.code-workspace)$  # tsconfig allows comments
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: check-toml
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier (web)
+        entry: bash -c 'cd web && pnpm exec prettier --write "$@"' --
+        language: system
+        files: ^web/.*\.(ts|tsx|js|jsx|json|md|css|html|mjs)$
+        pass_filenames: true
+
+      - id: eslint
+        name: eslint (web)
+        entry: bash -c 'cd web && pnpm exec eslint --fix "$@"' --
+        language: system
+        files: ^web/.*\.(ts|tsx|js|jsx|mjs)$
+        pass_filenames: true

@@ -1,0 +1,232 @@
+name: marketmind
+
+services:
+  postgres:
+    image: postgres:16.6-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-marketmind}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-marketmind_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-marketmind}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
+      # Phase 2.1 schema. The worker also re-applies these on startup
+      # (with CREATE TABLE IF NOT EXISTS) so they stay applied even when
+      # running outside compose; on fresh compose-up this gets there
+      # first so the API can read/write right away.
+      - ./infra/db/migrations:/docker-entrypoint-initdb.d/migrations:ro
+      - ./infra/postgres/apply-migrations.sh:/docker-entrypoint-initdb.d/01-apply-migrations.sh:ro
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-marketmind} -d $${POSTGRES_DB:-marketmind}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/api.Dockerfile
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      DATABASE_URL: ${DATABASE_URL:-postgresql://marketmind:marketmind_dev@postgres:5432/marketmind}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      RQ_QUEUE_NAME: ${RQ_QUEUE_NAME:-default}
+      DATA_DIR: ${DATA_DIR:-/data}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # Admin auth gates /admin/stats AND every /trader/strategies/{id}/{enable,disable,approve_paper}.
+      # Unset → 503 on admin endpoints (the intended local default).
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:8000}
+      RATE_LIMIT_INGEST_PER_DAY: ${RATE_LIMIT_INGEST_PER_DAY:-5}
+      DAILY_COST_CAP_GBP: ${DAILY_COST_CAP_GBP:-5.0}
+      GBP_USD_RATE: ${GBP_USD_RATE:-1.27}
+    volumes:
+      - ./data:/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: infra/worker.Dockerfile
+    # Vanilla blocking RQ worker — when idle it sits on a Redis BLPOP.
+    # On WSL2 the NAT drops that idle socket and RQ exits cleanly
+    # (code 0), so auto-revive. See commit message for the full trace.
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      # Same default the api service uses — both services hit the same DB.
+      DATABASE_URL: ${DATABASE_URL:-postgresql://marketmind:marketmind_dev@postgres:5432/marketmind}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      RQ_QUEUE_NAME: ${RQ_QUEUE_NAME:-default}
+      DATA_DIR: ${DATA_DIR:-/data}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # Phase C C.1.6 (2026-05-26): Oanda demo-account creds for
+      # the OandaAdapter (workers/.../trader/exchanges_oanda.py)
+      # used by the fx_spot / metals_spot factory dispatch (C.1.4).
+      # OANDA_ENVIRONMENT MUST be "practice"; the adapter raises
+      # IngestionError immediately on any other value. Empty
+      # defaults keep the worker boot working when the vars aren't
+      # set — the factory only complains if asked to build an Oanda
+      # adapter without them.
+      OANDA_API_KEY: ${OANDA_API_KEY:-}
+      OANDA_ACCOUNT_ID: ${OANDA_ACCOUNT_ID:-}
+      OANDA_ENVIRONMENT: ${OANDA_ENVIRONMENT:-practice}
+    volumes:
+      - ./data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Trader v1 runner. Same image as `worker` — re-uses every dep
+  # in the wheel — but its entry command runs the Phase 12 runner
+  # (RQ worker + in-process scheduler on the `trader_default`
+  # queue) instead of the Phase-0 RQ worker.
+  #
+  # `TRADER_ALLOW_LIVE` is pinned to "false" via the env var
+  # default. `assert_paper_only()` aborts boot on any other value.
+  # `ANTHROPIC_API_KEY` is intentionally NOT passed through —
+  # the trader's decision path must not touch any LLM (verified
+  # by `test_trader_no_anthropic_import.py`).
+  trader_worker:
+    build:
+      context: .
+      dockerfile: infra/worker.Dockerfile
+    command: ["python", "-m", "marketmind_workers.trader.runner"]
+    # Same restart guard as `worker`. The scheduler keeps this one's
+    # Redis connection warmer, but the policy is cheap insurance.
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://marketmind:marketmind_dev@postgres:5432/marketmind}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      DATA_DIR: ${DATA_DIR:-/data}
+      # Hard kill switch — runner refuses to boot on any other value.
+      TRADER_ALLOW_LIVE: ${TRADER_ALLOW_LIVE:-false}
+      TRADER_QUEUE_NAME: ${TRADER_QUEUE_NAME:-trader_default}
+      # Defaults aligned with TraderSettings (workers/trader/config.py)
+      # so the in-container behaviour matches what `uv run python -m
+      # marketmind_workers.trader.runner` would do on the host.
+      TRADER_SYMBOLS: ${TRADER_SYMBOLS:-BTC/USDT,ETH/USDT}
+      TRADER_TIMEFRAMES: ${TRADER_TIMEFRAMES:-4h,1h,15m}
+      TRADER_STARTING_CASH_GBP: ${TRADER_STARTING_CASH_GBP:-1000}
+      TRADER_MAX_RISK_PER_TRADE_PCT: ${TRADER_MAX_RISK_PER_TRADE_PCT:-0.01}
+      TRADER_MAX_PORTFOLIO_RISK_PCT: ${TRADER_MAX_PORTFOLIO_RISK_PCT:-0.05}
+      TRADER_MAX_DAILY_LOSS_PCT: ${TRADER_MAX_DAILY_LOSS_PCT:-0.02}
+      TRADER_MAX_WEEKLY_LOSS_PCT: ${TRADER_MAX_WEEKLY_LOSS_PCT:-0.05}
+      TRADER_MAX_DRAWDOWN_PCT: ${TRADER_MAX_DRAWDOWN_PCT:-0.10}
+      TRADER_DATA_STALENESS_SECONDS: ${TRADER_DATA_STALENESS_SECONDS:-600}
+      TRADER_DEFAULT_FEE_BPS: ${TRADER_DEFAULT_FEE_BPS:-10}
+      TRADER_DEFAULT_SLIPPAGE_BPS: ${TRADER_DEFAULT_SLIPPAGE_BPS:-10}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+    volumes:
+      # Daily summary reports — the 00:05 tick writes JSON + text to
+      # /data/daily-summaries/. Volume-mounted so they survive restarts.
+      - ./data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # FTR (Phase D) — paper-only research trader. Opt-in via the "ftr"
+  # compose profile: `docker compose --profile ftr up -d ftr-paper-trader`.
+  # No ANTHROPIC_API_KEY, no exchange credentials, by design.
+  ftr-paper-trader:
+    build:
+      context: .
+      dockerfile: infra/worker.Dockerfile
+    command: python -m marketmind_workers.ftr.trader.runner
+    profiles: ["ftr"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-marketmind}:${POSTGRES_PASSWORD:-marketmind_dev}@postgres:5432/${POSTGRES_DB:-marketmind}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      FTR_DATA_DIR: /data/ftr
+      FTR_PAPER_VENUE_PROFILE: ${FTR_PAPER_VENUE_PROFILE:-kraken_pro_uk_tier0}
+      FTR_INITIAL_EQUITY_USD: ${FTR_INITIAL_EQUITY_USD:-10000}
+    volumes:
+      - ./data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import marketmind_workers.ftr.trader.runner"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # FTR L1/L2 recorder — public websocket streams only; hourly parquet
+  # rotation into /data/ftr/recordings (gitignored, never redistributed).
+  ftr-recorder:
+    build:
+      context: .
+      dockerfile: infra/worker.Dockerfile
+    command: python -m marketmind_workers.ftr.data.recorder
+    profiles: ["ftr"]
+    restart: unless-stopped
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      FTR_DATA_DIR: /data/ftr
+      FTR_RECORDER_SYMBOLS: ${FTR_RECORDER_SYMBOLS:-BTC/USDT}
+      FTR_RECORDER_RECORD_ETH: ${FTR_RECORDER_RECORD_ETH:-false}
+    volumes:
+      - ./data:/data
+
+  web:
+    build:
+      context: .
+      dockerfile: infra/web.Dockerfile
+      target: dev
+    environment:
+      # Two API URLs because Next.js fetches from two places:
+      #   - the browser (NEXT_PUBLIC_API_URL is bundled in client JS,
+      #     reaches the api via the host's port mapping)
+      #   - the server-side render runtime inside this container
+      #     (API_URL_INTERNAL reaches the api via the compose network's
+      #     internal hostname)
+      # Without the second URL, server-component fetches collapse to
+      # the web container's own loopback and ECONNREFUSED. The split
+      # is invisible in dev-on-host but load-bearing in compose.
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      API_URL_INTERNAL: ${API_URL_INTERNAL:-http://api:8000}
+      NEXT_TELEMETRY_DISABLED: "1"
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  redisdata:

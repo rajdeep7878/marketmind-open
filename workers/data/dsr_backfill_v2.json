@@ -1,0 +1,137 @@
+{
+  "08f152c5-8d7d-4b54-9f40-8b6c13a0d3b2": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 0.0018288961942572702,
+    "n_observations_v2_years": 4,
+    "observed_sharpe": 0.6725800169402386,
+    "original_n_observations_bars": 9486,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.0018288961942572702
+  },
+  "0f8410be-85ca-45ad-b143-2d49a878f931": {
+    "bars_per_year": 8760.0,
+    "delta_prob_real": 0.037148852408515384,
+    "n_observations_v2_years": 2,
+    "observed_sharpe": -9.133589037857114,
+    "original_n_observations_bars": 20424,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.037148852408515384
+  },
+  "1622c6ee-6013-4679-bfe3-1640ff68a945": {
+    "bars_per_year": 8760.0,
+    "delta_prob_real": 8.961875615368826e-10,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": -1.7509144467175248,
+    "original_n_observations_bars": 55888,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 8.961875615368826e-10
+  },
+  "32df303f-e38e-4f9c-a443-4b9c6c9bdcb9": {
+    "bars_per_year": 35040.0,
+    "delta_prob_real": 9.262209087731859e-09,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": -2.3532327097561145,
+    "original_n_observations_bars": 223431,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 9.262209087731859e-09
+  },
+  "3a4e36d4-cab8-4c42-94c9-7f2872dd0777": {
+    "bars_per_year": 8760.0,
+    "delta_prob_real": 1.7329788606668153e-10,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": -0.3714998873974235,
+    "original_n_observations_bars": 55888,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 1.7329788606668153e-10
+  },
+  "3bfc9499-c75d-4841-b3f2-0383da18bc54": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 0.00912049797849518,
+    "n_observations_v2_years": 4,
+    "observed_sharpe": 0.9099165721900733,
+    "original_n_observations_bars": 9486,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.00912049797849518
+  },
+  "4eb3135a-09e0-436e-bda3-158ebcc502d9": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 5.804742687723672e-07,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": 0.30588440294836255,
+    "original_n_observations_bars": 13997,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 5.804742687723672e-07
+  },
+  "54cbac8a-3c4f-4aa6-87bc-3700efe4f2dc": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 0.0017096215871593159,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": 0.9523255168016308,
+    "original_n_observations_bars": 13997,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.0017096215871593159
+  },
+  "81039304-2698-4d2f-9833-724c20adbbd4": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 1.4601779988968626e-09,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": -0.1363780365307605,
+    "original_n_observations_bars": 13991,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 1.4601779988968626e-09
+  },
+  "959b6ad4-e329-4366-a069-393dd902b34a": {
+    "bars_per_year": 8760.0,
+    "delta_prob_real": 2.0296830526619796e-10,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": -0.34924926139594525,
+    "original_n_observations_bars": 55888,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 2.0296830526619796e-10
+  },
+  "beccee0e-9bd2-486a-aa95-e8e26f6822ac": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 8.698005449185201e-05,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": 0.6718766647112152,
+    "original_n_observations_bars": 13997,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 8.698005449185201e-05
+  },
+  "c9443506-daf8-4f1f-97a7-75e5db6155fb": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 0.002981768297607522,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": 1.0162728938675711,
+    "original_n_observations_bars": 13985,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.002981768297607522
+  },
+  "da4f3ace-1fc2-4967-808c-bc6a4cf345d9": {
+    "bars_per_year": 2190.0,
+    "delta_prob_real": 0.0035319988499323248,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": 1.0368152560411799,
+    "original_n_observations_bars": 13985,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.0035319988499323248
+  },
+  "e849188c-36b4-45eb-a1c2-8f1832ff52ab": {
+    "bars_per_year": 35040.0,
+    "delta_prob_real": 8.852551330910898e-06,
+    "n_observations_v2_years": 6,
+    "observed_sharpe": -6.506236738293005,
+    "original_n_observations_bars": 223431,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 8.852551330910898e-06
+  },
+  "fcdc16ea-9c95-473f-b74d-796ab41319fa": {
+    "bars_per_year": 8760.0,
+    "delta_prob_real": 0.0028931984626954055,
+    "n_observations_v2_years": 2,
+    "observed_sharpe": -0.2842256902000295,
+    "original_n_observations_bars": 20424,
+    "original_prob_real": 0.0,
+    "prob_real_v2": 0.0028931984626954055
+  }
+}
