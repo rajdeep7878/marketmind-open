@@ -1,6 +1,12 @@
-# MarketMind AI — Project Log
+# MarketMind — Project Log (historical research record)
 
-Searchable project history and hard-won knowledge. **NOT auto-loaded into context** — split out of `CLAUDE.md` on 2026-06-04 to keep the always-loaded file under the 40k-char perf threshold. The load-bearing *rules* distilled from everything below live in `CLAUDE.md` § "Engineering & trading rules" and § "Canonical sources of truth"; this file is the full narrative, the lessons behind the rules, completed-phase build notes, and the full doc index.
+> **Note for public-repo readers:** this is the verbatim engineering log of
+> the private research project this repo was curated from — phase
+> narratives, hard-won lessons, and the reasoning behind the engine's
+> rules. It is published as a research record, so it reads as the working
+> notes it was; internal phase names and dates are kept as written. For
+> the polished entry points, start with the README and
+> `docs/ftr/REPORT.md`.
 
 ---
 
