@@ -34,7 +34,7 @@ WORKING TIMEFRAME — 1h (justification)
 --------------------------------------
 1h is the default working timeframe for the perp-pair spread:
   - Funding is 8h, so 1h tiles a funding interval cleanly (8 bars).
-  - A market-neutral spread pays cost on BOTH legs; CLAUDE.md's cadence
+  - A market-neutral spread pays cost on BOTH legs; the project log's cadence
     rule (lower TF => more cost drag + noise) bites twice, so 1h is the
     prudent balance vs 15m.
   - 1h over a multi-year window still yields ~50k bars per leg — ample

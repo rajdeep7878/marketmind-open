@@ -16,7 +16,7 @@ from marketmind_workers.backtest import indicators as ind
 from ta.trend import PSARIndicator
 
 # `ta`'s PSARIndicator triggers a pandas Series.__setitem__ FutureWarning
-# (positional integer-key set) — out of our hands. Per the CLAUDE.md Phase
+# (positional integer-key set) — out of our hands. Per the project-log Phase
 # 2.2 hard-won pattern, scope the warning suppression to this test file.
 pytestmark = pytest.mark.filterwarnings("ignore::FutureWarning")
 
